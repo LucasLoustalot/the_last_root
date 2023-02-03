@@ -71,7 +71,7 @@ class Game():
     def update(self):
         """Update the window and the game by refreshing every game object added"""
         self.__update_event()
-        self.window.blit(self._background_texture, (0,0))
+        self.window.blit(self._background, (0,0))
         for layer, layer_obj in self.objects.items():
             for obj in layer_obj:
                 obj.event_tick()
