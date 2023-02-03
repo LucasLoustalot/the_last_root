@@ -7,6 +7,15 @@
 
 import pygame
 
+class Animation(pygame.sprite.Sprite):
+    def __init__(self, location: tuple, rotation: int, scale: tuple, frames_path: list):
+        self.frames = []
+        for i in range(0, len(frames_path)):
+            self.frames[i] = pygame.image.load(frames_path[i]).convert_alpha()
+            self.frames[i] = pygame.transform.scale(self.frames[i], scale)
+            self.frames[i] = pygame.transform.rotate(self.frames[i], rotation)
+
+
 class Game_Object(pygame.sprite.Sprite):
     """Master game object, parent of all other object classes.
     - Do not add gameplay specific functions here."""
@@ -71,7 +80,7 @@ class Game():
     def update(self):
         """Update the window and the game by refreshing every game object added"""
         self.__update_event()
-        self.window.blit(self._background, (0,0))
+        self.window.blit(self._background, (0, 0))
         for layer, layer_obj in self.objects.items():
             for obj in layer_obj:
                 obj.event_tick()

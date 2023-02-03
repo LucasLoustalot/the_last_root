@@ -20,6 +20,7 @@ class Player(Game_Object):
         self.upgrades = []
         self.texture = pygame.image.load(texturepath).convert_alpha()
         self.sprite = pygame.transform.scale(self.texture, self.scale)
+        self.sprite = pygame.transform.rotate(self.sprite, rotation)
         self.texture_rect = self.texture.get_rect()
 
     def event_tick(self):
