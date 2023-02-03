@@ -11,8 +11,9 @@ class Game_Object(pygame.sprite.Sprite):
     """Master game object, parent of all other object classes.
     - Do not add gameplay specific functions here."""
 
-    def __init__(self, location: tuple, rotation: int, scale: tuple):
+    def __init__(self, location: tuple, rotation: int, scale: tuple, game_ref):
         super().__init__()
+        self.game_ref = game_ref
         self.location = location
         self.rotation = rotation
         self.scale = scale
@@ -21,7 +22,7 @@ class Game_Object(pygame.sprite.Sprite):
         """Called One Per Frame"""
         return
 
-    def event_clicked():
+    def event_clicked(self):
         """Called When Clicked"""
         return
 
@@ -52,6 +53,8 @@ class Game():
         self.objects = {}
 
     def add_object(self, Object: Game_Object, layer: int):
+        if str(layer) not in self.objects:
+            self.objects[str(layer)] = []
         self.objects[str(layer)].append(Object)
 
     def remove_object(self, Object: Game_Object, layer: int):
@@ -68,8 +71,9 @@ class Game():
     def update(self):
         """Update the window and the game by refreshing every game object added"""
         self.__update_event()
-        for layer in self.objects:
-            for obj in layer:
+        self.window.blit(self._background_texture, (0,0))
+        for layer, layer_obj in self.objects.items():
+            for obj in layer_obj:
                 obj.event_tick()
         pygame.display.flip()
         return
