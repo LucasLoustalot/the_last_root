@@ -8,23 +8,23 @@ Idée du jeu :
 Une plante (tournesol ?), incarner la plante (la dernière plante sur Terre suite à des guerres chimiques et la déforestation massive)
 
 Plante au centre de l'écran posé sur le sol (terre), deux type de terre:
--terre normale
--terre avec de la contamination
+  -terre normale
+  -terre avec de la contamination
 
 Ciel gris la majorité du temps
 
 Objectif:
--Favoriser la croissance des racines pour augmenter la quantité d'eau et minéraux (monaies du jeu).
--Défendre la plante avec des améliorations
+  -Favoriser la croissance des racines pour augmenter la quantité d'eau et minéraux (monaies du jeu).
+  -Défendre la plante avec des améliorations
 
 Une barre de vie
 Les améliorations des défenses permettent d'améliorer la vie de la plante.
 
 Améliorations:
--Taille des racines (minéraux+ eau+)
--Protection sève collante sur la base de la tige (contre fourmis mutantes)
--Racines plus résistantes (3 paliers (réduction du malus en eau de la pluie acide))
+  -Taille des racines (minéraux+ eau+)
+  -Protection sève collante sur la base de la tige (contre fourmis mutantes)
+  -Racines plus résistantes (3 paliers (réduction du malus en eau de la pluie acide))
 
 Dangers:
--La pluie acide (fait perdre le l'eau à la plante, et infige des dégâts)
--Formies mutantes (dégâts)
+  -La pluie acide (fait perdre le l'eau à la plante, et infige des dégâts)
+  -Formies mutantes (dégâts)
