@@ -17,7 +17,6 @@ def ditnon():
 
 def main():
     pgm = Game((1600,800),60,"The Last Root","../assets/photobg.jpg")
-    
     pgm.add_object(Player(["../assets/flower1.png","../assets/photobg.jpg"],CONST_POS,0,(400,400),pgm),0)
     ant(pgm, CONST_POS)
     pgm.add_object(Upgrade_Button(["../assets/playbtnplaceholder.png"],

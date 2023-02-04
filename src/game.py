@@ -98,7 +98,6 @@ class Animation(pygame.sprite.Sprite):
                     self.is_playing = False
             return (self.frames[self._index])
 
-
 class Game():
     """Master class of the game, it contains:
     - the list of all active object
@@ -125,6 +124,19 @@ class Game():
             self._background_texture, self.window_res)
         self.objects = {}
         self.players = []
+
+        self.mineral = 0
+        self.water = 0
+        #(current/max)
+        self.ground_root_size = (0,8)
+        self.surface_root_size = (0,8)
+        self.sticky_roots = (0,8)
+        self.shield_roots = (0,3)
+        #eau,minéraux
+        self.g_root_size_cost = (25,10)
+        self.sticky_root_cost = (10,30)
+        self.shield_roots_cost = (10,40)
+        self.surface_root_cost = (30,40)
 
     def add_player(self, player: Game_Object) -> int:
         """Add a player and return a player id"""
@@ -173,6 +185,9 @@ class Game():
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     exit()
+
+    def passive_income(self):
+        
 
     def update(self):
         """Update the window and the game by refreshing every game object added"""
