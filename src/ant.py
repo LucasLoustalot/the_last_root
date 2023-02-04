@@ -21,6 +21,7 @@ class Ant(Game_Object):
                  rotation: int, scale: tuple, game_ref: Game, target_loc: tuple):
         super().__init__(location=location, rotation=0,
                          scale=scale, game_ref=game_ref)
+        print(rotation)
         self.flip = True if rotation < 120 else False
         self.health = 100
         self.sprite = Animation(self.location, self.rotation,
@@ -40,8 +41,6 @@ class Ant(Game_Object):
             self.location = (
                 self.location[0] + math.cos(self.rotation) * sp, self.location[1])
 
-    def event_tick(self, delta_time: float, fps: float):
-        self.location = (self.location[0] + 10, self.location[1])
         self.collide_rect = self.sprite.get_rect(self.location, self.rotation)
         frame = self.sprite.get_frame(delta_time)
         self.game_ref.window.blit(frame, self.location)

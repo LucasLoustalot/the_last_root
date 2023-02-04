@@ -51,7 +51,7 @@ class Animation(pygame.sprite.Sprite):
                 frames_path[i]).convert_alpha())
             if location[0] == -50:
                 self.frames[i] = pygame.transform.flip(
-                    self.frames[i], False, True)
+                    self.frames[i], True, False)
             self.frames[i] = pygame.transform.scale(self.frames[i], scale)
             self.frames[i] = pygame.transform.rotate(self.frames[i], rotation)
             self.frames_rect.append(self.frames[i].get_rect(
