@@ -29,12 +29,13 @@ class Upgrade_Button(Game_Object):
         self.upgrade_level = level
 
     def event_clicked(self, hit_location: tuple):
-        self.callback(self.game_ref, hit_location)
-def button_upgrade_laser():
+        self.callback(self.game_ref, self)
+
+def button_upgrade_laser(game: Game, upgrade: Upgrade_Button):
     return
-def button_upgrade_floor():
+def button_upgrade_floor(game: Game, upgrade: Upgrade_Button):
     return
-def button_upgrade_pic():
+def button_upgrade_pic(game: Game, upgrade: Upgrade_Button):
     return
-def button_upgrade_root():
+def button_upgrade_root(game: Game, upgrade: Upgrade_Button):
     return

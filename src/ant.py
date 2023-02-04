@@ -21,7 +21,6 @@ class Ant(Game_Object):
                  rotation: int, scale: tuple, game_ref: Game, target_loc: tuple):
         super().__init__(location=location, rotation=0,
                          scale=scale, game_ref=game_ref)
-        print(rotation)
         self.flip = True if rotation < 120 else False
         self.health = 100
         self.sprite = Animation(self.location, self.rotation,
