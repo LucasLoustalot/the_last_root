@@ -9,7 +9,7 @@ import pygame
 from game import *
 from player import *
 from ant import *
-CONST_POS = (300, 300)
+CONST_POS = (800, 400)
 
 def main():
     pgm = Game((1600,800),60,"The Last Root","../assets/photobg.jpg")

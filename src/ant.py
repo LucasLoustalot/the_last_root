@@ -9,6 +9,7 @@ from game import *
 import pygame
 import random
 import math
+antl = []
 
 class Ant(Game_Object):
     """Ant Specific Class"""
@@ -23,23 +24,22 @@ class Ant(Game_Object):
         self.sprite.play(loop=False)
 
     def event_tick(self, delta_time: int):
+        
         self.collide_rect = self.sprite.get_rect(self.location, self.rotation)
         frame = self.sprite.get_frame(delta_time)
         self.game_ref.window.blit(frame, self.location)
 
     def event_clicked(self, hit_pos: tuple):
-        print("hello")
         return
 
 def ant(game: Game, pos: tuple):
     j = 1
-    antl: Ant = []
-    for i in range(0, j * 5):
+    for i in range(0, 5):
         random1 = random.choice([0, 1500])
         random2 = random.randint(0, 800)
         antl.append(Ant(["../assets/ant.png","../assets/ant.png"],
         (random1, random2), angle_player(pos, (random1, random2)), (150, 150), game))
-    for i in range(0, j * 5):
+    for i in range(0, 5):
         game.add_object(antl[i], 1)
 
 def angle_player(pos, pos2):
