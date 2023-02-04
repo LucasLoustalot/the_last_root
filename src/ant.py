@@ -27,7 +27,8 @@ class Ant(Game_Object):
         self.collide_rect = frame.get_rect()
         self.game_ref.window.blit(frame, self.location)
 
-    def event_clicked(self):
+    def event_clicked(self, hit_pos: tuple):
+        print("hello")
         return
 
 def ant(game: Game, pos: tuple):
@@ -37,11 +38,11 @@ def ant(game: Game, pos: tuple):
         random1 = random.choice([0, 1500])
         random2 = random.randint(0, 800)
         antl.append(Ant(["../assets/ant.png","../assets/ant.png"],
-        (random1, random2), angle_between_players(pos, (random1, random2)), (150, 150), game))
+        (random1, random2), angle_player(pos, (random1, random2)), (150, 150), game))
     for i in range(0, j * 5):
         game.add_object(antl[i], 1)
 
-def angle_between_players(pos, pos2):
+def angle_player(pos, pos2):
     x1, y1 = pos
     x2, y2 = pos2
     x_diff = x2 - x1

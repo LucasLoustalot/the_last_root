@@ -27,6 +27,6 @@ class Player(Game_Object):
         self.collide_rect = frame.get_rect()
         self.game_ref.window.blit(frame, self.location)
 
-    def event_clicked(self):
+    def event_clicked(self, hit_pos: tuple):
         print("bonjour")
         return
