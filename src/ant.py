@@ -24,12 +24,12 @@ class Ant(Game_Object):
         self.sprite.play(loop=False)
 
     def event_tick(self, delta_time: int):
-
         self.collide_rect = self.sprite.get_rect(self.location, self.rotation)
         frame = self.sprite.get_frame(delta_time)
         self.game_ref.window.blit(frame, self.location)
 
     def event_clicked(self, hit_pos: tuple):
+        self.game_ref.remove_object_by_id(1, self.object_id)
         return
 
 def ant(game: Game, pos: tuple):
@@ -46,5 +46,5 @@ def angle_player(pos, pos2):
     x1, y1 = pos
     x2, y2 = pos2
     x_diff = x2 - x1
-    y_diff = y2 - y1git
+    y_diff = y2 - y1
     return math.degrees(math.atan2(y_diff, x_diff))
