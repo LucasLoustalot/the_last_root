@@ -19,39 +19,31 @@ class Ant(Game_Object):
 
     def __init__(self, texturespath: list, location: tuple,
                  rotation: int, scale: tuple, game_ref: Game, target_loc: tuple):
-        super().__init__(location=location, rotation=rotation,
+        super().__init__(location=location, rotation=0,
                          scale=scale, game_ref=game_ref)
+        print(rotation)
+        self.flip = True if rotation < 120 else False
         self.health = 100
         self.sprite = Animation(self.location, self.rotation,
                                 self.scale, texturespath, 0.1)
         self.sprite.play(loop=False)
         self.target_location = target_loc
+        self.speed = 100
 
-    def event_tick(self, delta_time: int):
+    def event_tick(self, delta_time: float, fps: float):
 
-        err = 0.5
-        if (self.location[0] <= self.target_location[0] + 0.5 and 
-        self.location[0] >= self.target_location[0]) :
-            return
+        err = 1
+        sp = self.speed / fps
+        if self.flip == True:
+            sp = sp * -1
+        if not (self.location[0] <= self.target_location[0] + err and
+                self.location[0] >= self.target_location[0] - err):
+            self.location = (
+                self.location[0] + math.cos(self.rotation) * sp, self.location[1])
 
-    '''if ((pos.x <= tgpos.x + threshold & & pos.x >=
-         tgpos.x - threshold) & & (pos.y <= tgpos.y + threshold
-                                   & & pos.y >= tgpos.y - threshold)) {
-        if (ac -> is_active == -1)
-        return
-        remove_aircraft(ac, rd)
-        return
-    }
-    sfSprite_setPosition(ac -> ac_sprite,
-                         (sfVector2f){pos.x + (cos(angle) * sp),
-                                      pos.y + (sin(angle) * sp)})
-    sfRectangleShape_setPosition(ac -> col_rect, (sfVector2f)
-                                 {pos.x + (cos(angle) * sp),
-                                  pos.y + (sin(angle) * sp)})
-    '''
-    self.collide_rect = self.sprite.get_rect(self.location, self.rotation)
-    frame = self.sprite.get_frame(delta_time)
-    self.game_ref.window.blit(frame, self.location)
+        self.collide_rect = self.sprite.get_rect(self.location, self.rotation)
+        frame = self.sprite.get_frame(delta_time)
+        self.game_ref.window.blit(frame, self.location)
 
     def event_clicked(self, hit_pos: tuple):
         self.game_ref.remove_object_by_id(1, self.object_id)

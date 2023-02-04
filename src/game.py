@@ -22,7 +22,7 @@ class Game_Object(pygame.sprite.Sprite):
         self.collide_rect = None
         self.object_id = 0
 
-    def event_tick(self, delta_time: int):
+    def event_tick(self, delta_time: float, fps: float):
         """Called One Per Frame"""
         return
 
@@ -50,7 +50,7 @@ class Animation(pygame.sprite.Sprite):
             self.frames.append(pygame.image.load(
                 frames_path[i]).convert_alpha())
             if location[0] == -50:
-                self.frames[i] = pygame.transform.flip(self.frames[i], False, True)
+                self.frames[i] = pygame.transform.flip(self.frames[i], True, False)
             self.frames[i] = pygame.transform.scale(self.frames[i], scale)
             self.frames[i] = pygame.transform.rotate(self.frames[i], rotation)
             self.frames_rect.append(self.frames[i].get_rect(
@@ -77,7 +77,7 @@ class Animation(pygame.sprite.Sprite):
         self.frames_rect[self._index] = sprite_rect
         return (self.frames_rect[self._index])
 
-    def get_frame(self, delta_time: int):
+    def get_frame(self, delta_time: float):
         if self.is_playing == False:
             return (self.frames[self._index])
         self._clock += delta_time
@@ -197,8 +197,10 @@ class Game():
         self.__update_event()
         self.window.blit(self._background, (0, 0))
         self.__garbage_collector()
+        tick = self.clock.tick(60)
+        fps = 1000.0 / tick
         for layer, layer_obj in self.objects.items():
             for key in layer_obj:
-                layer_obj[key].event_tick(self.clock.tick() / 1000)
+                layer_obj[key].event_tick(tick / 1000, fps)
         pygame.display.flip()
         return
