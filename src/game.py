@@ -50,7 +50,8 @@ class Animation(pygame.sprite.Sprite):
             self.frames.append(pygame.image.load(
                 frames_path[i]).convert_alpha())
             if location[0] == -50:
-                self.frames[i] = pygame.transform.flip(self.frames[i], False, True)
+                self.frames[i] = pygame.transform.flip(
+                    self.frames[i], False, True)
             self.frames[i] = pygame.transform.scale(self.frames[i], scale)
             self.frames[i] = pygame.transform.rotate(self.frames[i], rotation)
             self.frames_rect.append(self.frames[i].get_rect(
@@ -97,6 +98,7 @@ class Animation(pygame.sprite.Sprite):
                     self.is_playing = False
             return (self.frames[self._index])
 
+
 class Game():
     """Master class of the game, it contains:
     - the list of all active object
@@ -129,21 +131,27 @@ class Game():
 
         self.mineral = 0
         self.water = 0
-        #(current/max)
-        self.ground_root_size = (0,8)
-        self.surface_root_size = (0,8)
-        self.sticky_roots = (0,8)
-        self.shield_roots = (0,3)
-        #eau,minéraux
-        self.g_root_size_cost = (25,10)
-        self.sticky_root_cost = (10,30)
-        self.shield_roots_cost = (10,40)
-        self.surface_root_cost = (30,40)
+        # (current/max)
+        self.ground_root_size = (1, 8)
+        self.surface_root_size = (1, 8)
+        self.sticky_roots = (1, 8)
+        self.shield_roots = (1, 3)
+        # eau,minéraux
+        self.g_root_size_cost = (25, 10)
+        self.sticky_root_cost = (10, 30)
+        self.shield_roots_cost = (10, 40)
+        self.surface_root_cost = (30, 40)
 
     def add_player(self, player: Game_Object) -> int:
         """Add a player and return a player id"""
         self.players.append(player)
         return (len(self.players) - 1)
+
+    def refresh_upgrades(self):
+
+        srf_root_path = "../assets/racine_surface/racine"
+        for i in range(1, self.ground_root_size[0]):
+            pth = srf_root_path + str(i) + "_" + "avec" if self.sticky_roots[0] >= i else "sans" + "acide.png"
 
     def remove_player(self, player_id):
         self.players.pop(player_id)
