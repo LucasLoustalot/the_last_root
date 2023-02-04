@@ -167,20 +167,33 @@ class Game():
         else:
             return (False)
 
+    def decrase_thune(self, water: int, mineral: int):
+        self.water = self.water - water
+        self.mineral = self.mineral - mineral
+
     def upgrade_gnd_root(self):
         mult = 2
         self.ground_root_size = (self.ground_root_size[0] + 1, self.ground_root_size[1])
+        self.decrase_thune(self.g_root_size_cost[0], self.g_root_size_cost[1])
         self.g_root_size_cost = (self.g_root_size_cost[0] * mult, self.g_root_size_cost[1] * mult)
 
     def upgrade_sticky_root(self):
         mult = 2
-        self.sticky_roots = (self.sticky_roots[0] + 1, self.sticky_roots[1]) 
+        self.sticky_roots = (self.g_root_size_cost[0] + 1, self.g_root_size_cost[1]) 
+        self.decrase_thune(self.g_root_size_cost[0], self.g_root_size_cost[1])
         self.sticky_root_cost = (self.sticky_root_cost[0] * mult, self.sticky_root_cost[1] * mult)
 
     def upgrade_surface_root(self):
         mult = 2
-        self.sticky_roots = (self.sticky_roots[0] + 1, self.sticky_roots[1]) 
-        self.sticky_root_cost = (self.sticky_root_cost[0] * mult, self.sticky_root_cost[1] * mult)
+        self.surface_root_size = (self.g_root_size_cost[0] + 1, self.g_root_size_cost[1])
+        self.decrase_thune(self.g_root_size_cost[0], self.g_root_size_cost[1])
+        self.surface_root_cost = (self.surface_root_cost[0] * mult, self.surface_root_cost[1] * mult)
+
+    def upgrade_pic(self):
+        mult = 2
+        self.pic_upgrade = (self.pic_upgrade[0] + 1, self.pic_upgrade[1])
+        self.decrase_thune(self.pic_upgrade[0], self.pic_upgrade[1])
+        self.pic_cost = (self.pic_cost[0] * mult, self.pic_cost[1] * mult)
 
     def refresh_upgrades(self):
         srf_root_path = "../assets/racine_surface/racine"
@@ -233,6 +246,11 @@ class Game():
                     pygame.quit()
                     exit()
 
+    def draw_upgrades(self):
+        self.window.blit(self.gnd_root_sp[self.ground_root_size[0] - 1],(993,678))
+        self.window.blit(self.sticky_roots_sp[self.sticky_roots[0] - 1],(993,678))
+        return
+
     def update(self):
         """Update the window and the game by refreshing every game object added"""
         self.__update_event()
@@ -245,5 +263,6 @@ class Game():
         for layer, layer_obj in self.objects.items():
             for key in layer_obj:
                 layer_obj[key].event_tick(tick / 1000, fps)
+        self.draw_upgrades() #993 660
         pygame.display.flip()
         return
