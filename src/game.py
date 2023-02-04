@@ -129,8 +129,10 @@ class Game():
         self.objects = {}
         self.players = []
 
-        self.mineral = 0
-        self.water = 0
+        self.mineral = 4
+        self.water = 6
+        self.m_income = 0.05
+        self.w_income = 0.1
         # (current/max)
         self.ground_root_size = (1, 8)
         self.surface_root_size = (1, 8)
@@ -146,6 +148,10 @@ class Game():
         """Add a player and return a player id"""
         self.players.append(player)
         return (len(self.players) - 1)
+
+    def passive_income(self, fps: int):
+        self.water += self.m_income / fps
+        self.mineral += 0.5 / fps
 
     def refresh_upgrades(self):
 
@@ -196,9 +202,6 @@ class Game():
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     exit()
-
-    def passive_income(self):
-        return
 
     def update(self):
         """Update the window and the game by refreshing every game object added"""
