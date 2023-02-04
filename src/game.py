@@ -135,7 +135,15 @@ class Game():
         return (Object.object_id)
 
     def remove_object_by_id(self, layer: int, Object_id: int):
-        self.objects[str(layer)].pop(Object_id)
+        self.objects[str(layer)][str(Object_id)] = None
+
+    def __garbage_collector(self):
+        for layer, layer_obj in self.objects.items():
+            for key in layer_obj:
+                if layer_obj[key] == None:
+                    del layer_obj[key]
+                    self.__garbage_collector()
+                    return
 
     def __update_event(self):
         """Private Method
@@ -158,6 +166,7 @@ class Game():
         """Update the window and the game by refreshing every game object added"""
         self.__update_event()
         self.window.blit(self._background, (0, 0))
+        self.__garbage_collector()
         for layer, layer_obj in self.objects.items():
             for key in layer_obj:
                 layer_obj[key].event_tick(self.clock.tick() / 1000)
