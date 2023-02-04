@@ -18,6 +18,8 @@ class Upgrade_Button(Game_Object):
         self.sprite = pygame.transform.scale(self.sprite, self.scale)
         self.sprite = pygame.transform.rotate(self.sprite, self.rotation)
         self.callback = callback_function
+        self.font = self.game_ref.font
+        self.
         self.upgrade_level = 0
 
     def set_upgrade_level(self, level: int):

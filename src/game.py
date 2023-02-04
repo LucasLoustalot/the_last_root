@@ -30,6 +30,9 @@ class Game_Object(pygame.sprite.Sprite):
         """Called When Clicked"""
         return
 
+    def event_destroyed(self):
+        """Called When the object is destroyed"""
+
 
 class Animation(pygame.sprite.Sprite):
     def __init__(self, location: tuple, rotation: int, scale: tuple,
@@ -46,7 +49,8 @@ class Animation(pygame.sprite.Sprite):
             self.frames.append(pygame.image.load(
                 frames_path[i]).convert_alpha())
             if location[0] == 0:
-                self.frames[i] = pygame.transform.flip(self.frames[i], False, True)
+                self.frames[i] = pygame.transform.flip(
+                    self.frames[i], False, True)
             self.frames[i] = pygame.transform.scale(self.frames[i], scale)
             self.frames[i] = pygame.transform.rotate(self.frames[i], rotation)
             self.frames_rect.append(self.frames[i].get_rect(
@@ -106,6 +110,7 @@ class Game():
     def __init__(self, window_res: tuple, fps: int, name: str, background_path: str):
         pygame.init()
         pygame.mixer.init()
+        pygame.font.init()
         pygame.mixer.music.set_volume(0.3)
         pygame.display.set_caption(name)
         self.clock = pygame.time.Clock()
@@ -120,7 +125,7 @@ class Game():
         self.objects = {}
         self.players = []
 
-    def add_player(self, player: Game_Object) ->  int:
+    def add_player(self, player: Game_Object) -> int:
         """Add a player and return a player id"""
         self.players.append(player)
         return (len(self.players) - 1)
