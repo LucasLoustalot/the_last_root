@@ -9,6 +9,7 @@ import pygame
 from game import *
 from player import *
 from ant import *
+import time
 CONST_POS = (800, 400)
 
 def main():
@@ -17,6 +18,9 @@ def main():
     ant(pgm, CONST_POS)
     while (1):
         pgm.update()
+        if pgm.nb_ant == 0:
+            pgm.wave += 1
+            ant(pgm, CONST_POS)
     return (0)
 
 if __name__ == '__main__':

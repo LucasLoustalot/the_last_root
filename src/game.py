@@ -45,7 +45,7 @@ class Animation(pygame.sprite.Sprite):
         for i in range(0, len(frames_path)):
             self.frames.append(pygame.image.load(
                 frames_path[i]).convert_alpha())
-            if location[0] == 0:
+            if location[0] == -50:
                 self.frames[i] = pygame.transform.flip(self.frames[i], False, True)
             self.frames[i] = pygame.transform.scale(self.frames[i], scale)
             self.frames[i] = pygame.transform.rotate(self.frames[i], rotation)
@@ -109,6 +109,9 @@ class Game():
         pygame.mixer.music.set_volume(0.3)
         pygame.display.set_caption(name)
         self.clock = pygame.time.Clock()
+        self.wave = 1
+        self.nb_ant = 0
+        self.nb = 2.0
         self.window_res = window_res
         self.fps = fps
         self.font = pygame.font.SysFont(pygame.font.get_default_font(), 26)
@@ -130,12 +133,13 @@ class Game():
 
     def add_object(self, Object: Game_Object, layer: int) -> int:
         """Add an object and return an object id"""
-        Object.layer = layer
+        obj = Object
+        obj.layer = layer
         if str(layer) not in self.objects:
             self.objects[str(layer)] = {}
-        Object.object_id = len(self.objects[str(layer)])
-        self.objects[str(layer)][str(Object.object_id)] = Object
-        return (Object.object_id)
+        obj.object_id = len(self.objects[str(layer)])
+        self.objects[str(layer)][str(obj.object_id)] = obj
+        return (obj.object_id)
 
     def remove_object_by_id(self, layer: int, Object_id: int):
         self.objects[str(layer)][str(Object_id)] = None

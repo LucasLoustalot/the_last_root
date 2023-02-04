@@ -6,9 +6,11 @@
 ##
 
 from game import *
+from player import *
 import pygame
 import random
 import math
+import time
 antl = []
 
 class Ant(Game_Object):
@@ -30,17 +32,17 @@ class Ant(Game_Object):
 
     def event_clicked(self, hit_pos: tuple):
         self.game_ref.remove_object_by_id(1, self.object_id)
+        self.game_ref.nb_ant -= 1
         return
 
 def ant(game: Game, pos: tuple):
-    j = 1
-    for i in range(0, 5):
-        random1 = random.choice([0, 1500])
-        random2 = random.randint(0, 800)
-        antl.append(Ant(["../assets/ant.png","../assets/ant.png"],
-        (random1, random2), angle_player(pos, (random1, random2)), (150, 150), game))
-    for i in range(0, 5):
-        game.add_object(antl[i], 1)
+    game.nb = game.nb + 0.25 + round(random.uniform(0.1, 0.4), 1)
+    game.nb_ant = int(game.nb)
+    for i in range(0, game.nb_ant):
+        random1 = random.choice([-50, 1500])
+        random2 = random.randint(0, 700)
+        game.add_object(Ant(["../assets/ant.png","../assets/ant.png"],
+        (random1, random2), angle_player(pos, (random1, random2)), (100, 100), game), 1)
 
 def angle_player(pos, pos2):
     x1, y1 = pos
