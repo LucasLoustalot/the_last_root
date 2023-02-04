@@ -47,8 +47,8 @@ class Upgrade_Button(Game_Object):
         frame = self.sprite.get_frame(delta_time)
         self.game_ref.window.blit(frame, self.location)
         self.game_ref.window.blit(self.textlvl, (self.location[0] + 20, self.location[1] + 100))
-        self.game_ref.window.blit(self.textwater, (self.location[0] + 100, self.location[1] + 80))
-        self.game_ref.window.blit(self.textmin, (self.location[0] + 100, self.location[1] + 108))
+        self.game_ref.window.blit(self.textwater, (self.location[0] + 120, self.location[1] + 80))
+        self.game_ref.window.blit(self.textmin, (self.location[0] + 120, self.location[1] + 108))
 
     def set_upgrade_level(self, level: int):
         self.upgrade_level = level
