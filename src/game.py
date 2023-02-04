@@ -64,11 +64,10 @@ class Animation(pygame.sprite.Sprite):
         if self._index >= self._max_index:
             self._index = 0
         sprite = self.frames[self._index]
-        sprite_rect = sprite.get_rect(topleft=location)
+        sprite_rect = self.frames_rect[self._index]
         sprite_rect.center = (sprite_rect.width // 2) + \
-            location[0], (sprite_rect.height // 2) + + location[1]
+            location[0], (sprite_rect.height // 2) + location[1]
         self.frames_rect[self._index] = sprite_rect
-        self.frames[self._index] = pygame.transform.rotate(sprite, rotation)
         return (self.frames_rect[self._index])
 
     def get_frame(self, delta_time: int):
