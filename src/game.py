@@ -20,6 +20,7 @@ class Game_Object(pygame.sprite.Sprite):
         self.scale = scale
         self.layer = 0
         self.collide_rect = None
+        self.object_id = 0
 
     def event_tick(self, delta_time: int):
         """Called One Per Frame"""
@@ -115,15 +116,29 @@ class Game():
         self._background = pygame.transform.scale(
             self._background_texture, self.window_res)
         self.objects = {}
+        self.players = []
 
-    def add_object(self, Object: Game_Object, layer: int):
+    def add_player(self, player: Game_Object) ->  int:
+        """Add a player and return a player id"""
+        self.players.append(player)
+        return (len(self.players) - 1)
+
+    def remove_player(self, player_id):
+        self.players.pop(player_id)
+
+    def add_object(self, Object: Game_Object, layer: int) -> int:
         Object.layer = layer
         if str(layer) not in self.objects:
             self.objects[str(layer)] = []
+        Object.object_id = len(self.objects[str(layer)])
         self.objects[str(layer)].append(Object)
+        return (Object.object_id)
 
     def remove_object(self, Object: Game_Object, layer: int):
         self.objects[str(layer)].remove(Object)
+
+    def remove_object_by_id(self, layer: int, Object_id: int):
+        self.objects[str(layer)].pop(Object_id)
 
     def __update_event(self):
         """Private Method
