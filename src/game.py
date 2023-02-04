@@ -121,6 +121,7 @@ class Game():
                 for layer, layer_obj in self.objects.items():
                     for obj in layer_obj:
                         print("obj iter")
+                        print("event pos " + str(event.pos))
                         if obj.collide_rect.collidepoint(event.pos):
                             obj.event_clicked(event.pos)
 

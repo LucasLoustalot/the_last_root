@@ -24,9 +24,8 @@ class Player(Game_Object):
 
     def event_tick(self, delta_time: int):
         frame = self.sprite.get_frame(delta_time)
-        self.collide_rect = frame.get_rect()
+        self.collide_rect = frame.get_rect(topleft=(self.location[0], self.location[1]))
         self.game_ref.window.blit(frame, self.location)
 
-    def event_clicked(self):
-        print("bonjour")
+    def event_clicked(self, hit_location: tuple):
         return
