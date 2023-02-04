@@ -162,7 +162,7 @@ class Game():
             return (False)
 
     def upgrade_gnd_root(self):
-        self.
+        return
 
     def refresh_upgrades(self):
 
