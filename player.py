@@ -20,6 +20,7 @@ class Player(Game_Object):
         self.upgrades = []
         self.sprite = Animation(self.location, self.rotation,
         self.scale, texturespath, 0.1)
+        self.sprite.play()
 
     def event_tick(self, delta_time: int):
         self.game_ref.window.blit(self.sprite.get_frame(delta_time), self.location)

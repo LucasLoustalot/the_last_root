@@ -10,12 +10,13 @@ import pygame
 
 class Animation(pygame.sprite.Sprite):
     def __init__(self, location: tuple, rotation: int, scale: tuple,
-                frames_path: list, delay_ms: int):
+                 frames_path: list, delay_ms: float):
         super().__init__()
         self.frames = []
         self.delay_ms = delay_ms
         self._index = 0
         self._clock = 0
+        self.is_playing = 0
         for i in range(0, len(frames_path)):
             self.frames.append(pygame.image.load(
                 frames_path[i]).convert_alpha())
@@ -23,7 +24,18 @@ class Animation(pygame.sprite.Sprite):
             self.frames[i] = pygame.transform.rotate(self.frames[i], rotation)
         self._max_index = len(self.frames)
 
+    def play(self):
+        self.is_playing = True
+
+    def stop(self):
+        self.is_playing = False
+    
+    def toggle_play(self):
+        self.is_playing = not self.is_playing
+
     def get_frame(self, delta_time: int):
+        if self.is_playing == False:
+            return (self.frames[self._index])
         self._clock += delta_time
         if self._clock >= self.delay_ms:
             self._clock = 0
@@ -32,7 +44,7 @@ class Animation(pygame.sprite.Sprite):
             frame = self.frames[self._index]
             self._index += 1
             return (frame)
-        else :
+        else:
             if self._index >= self._max_index:
                 self._index = 0
             return (self.frames[self._index])
