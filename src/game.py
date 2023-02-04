@@ -133,12 +133,18 @@ class Game():
         self.water = 6
         self.m_income = 0.05
         self.w_income = 0.1
+        # sprites
+        self.gnd_root_sp = [pygame.image.load(
+            "../assets/new_roots/racine_" + str(x + 1) + "_sans_acide.png") for x in range(0, 4)]
+        self.sticky_roots_sp = [pygame.image.load(
+            "../assets/new_roots/acide_racine_" + str(x+1) + ".png") for x in range(0, 4)]
+
         # (current/max)
         self.ground_root_size = (1, 8)
         self.surface_root_size = (1, 8)
         self.sticky_roots = (1, 8)
         self.shield_roots = (1, 3)
-        self.pic_upgrade = (1,3)
+        self.pic_upgrade = (1, 3)
         # eau,minéraux
         self.g_root_size_cost = (25, 10)
         self.pic_cost = (25, 10)
@@ -158,17 +164,30 @@ class Game():
     def check_thune(self, water: int, mineral: int) -> bool:
         if self.water >= water and self.mineral >= mineral:
             return (True)
-        else :
+        else:
             return (False)
 
     def upgrade_gnd_root(self):
-        return
+        mult = 2
+        self.ground_root_size = (self.ground_root_size[0] + 1, self.ground_root_size[1])
+        self.g_root_size_cost = (self.g_root_size_cost[0] * mult, self.g_root_size_cost[1] * mult)
+
+    def upgrade_sticky_root(self):
+        mult = 2
+        self.sticky_roots = (self.sticky_roots[0] + 1, self.sticky_roots[1]) 
+        self.sticky_root_cost = (self.sticky_root_cost[0] * mult, self.sticky_root_cost[1] * mult)
+
+    def upgrade_surface_root(self):
+        mult = 2
+        self.sticky_roots = (self.sticky_roots[0] + 1, self.sticky_roots[1]) 
+        self.sticky_root_cost = (self.sticky_root_cost[0] * mult, self.sticky_root_cost[1] * mult)
 
     def refresh_upgrades(self):
-
         srf_root_path = "../assets/racine_surface/racine"
         for i in range(1, self.ground_root_size[0]):
-            pth = srf_root_path + str(i) + "_" + "avec" if self.sticky_roots[0] >= i else "sans" + "acide.png"
+            pth = srf_root_path + \
+                str(i) + "_" + \
+                "avec" if self.sticky_roots[0] >= i else "sans" + "acide.png"
 
     def remove_player(self, player_id):
         self.players.pop(player_id)
@@ -222,7 +241,7 @@ class Game():
         tick = self.clock.tick(60)
         fps = 1000.0 / tick
         self.passive_income(fps)
-        #print("Eau : " + str(self.water) + " Minerais : " + str(self.mineral))
+        # print("Eau : " + str(self.water) + " Minerais : " + str(self.mineral))
         for layer, layer_obj in self.objects.items():
             for key in layer_obj:
                 layer_obj[key].event_tick(tick / 1000, fps)
