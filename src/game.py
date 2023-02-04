@@ -32,6 +32,7 @@ class Game_Object(pygame.sprite.Sprite):
 
     def event_destroyed(self):
         """Called When the object is destroyed"""
+        return
 
 
 class Animation(pygame.sprite.Sprite):
@@ -143,6 +144,7 @@ class Game():
         return (Object.object_id)
 
     def remove_object_by_id(self, layer: int, Object_id: int):
+        self.objects[str(layer)][str(Object_id)].event_destroyed()
         self.objects[str(layer)][str(Object_id)] = None
 
     def __garbage_collector(self):
