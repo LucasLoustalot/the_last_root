@@ -10,16 +10,15 @@ from game import *
 from player import *
 from ant import *
 from user_interface import *
-CONST_POS = (800, 400)
+CONST_POS = (768, 325)
 
 def main():
-    pgm = Game((1600,800),60,"The Last Root","../assets/photobg.jpg")
-    pgm.add_object(Player(["../assets/flower/flower_pxl.png","../assets/photobg.jpg"],CONST_POS,0,(400,400),pgm),0)
-    pgm.add_object(Upgrade_Button(["../assets/broot.png"],(1440,5),0,(150,150),pgm,button_upgrade_laser), 2)
-    pgm.add_object(Upgrade_Button(["../assets/broot.png"],(1270,5),0,(150,150),pgm,button_upgrade_floor), 2)
-    pgm.add_object(Upgrade_Button(["../assets/broot.png"],(1100,5),0,(150,150),pgm,button_upgrade_pic), 2)
-    pgm.add_object(Upgrade_Button(["../assets/broot.png"],(930, 5),0,(150,150),pgm,button_upgrade_root), 2)
-
+    pgm = Game((1920,1080),60,"The Last Root","../assets/photobg.jpg")
+    pgm.add_object(Player(["../assets/flower/flower_pxl.png"],CONST_POS,0,(400,400),pgm),0)
+    pgm.add_object(Upgrade_Button(["../assets/broot.png"],(1750,20),0,(150,150),pgm,button_upgrade_laser, 3), 2)
+    pgm.add_object(Upgrade_Button(["../assets/broot.png"],(1580,20),0,(150,150),pgm,button_upgrade_floor, 1), 2)
+    pgm.add_object(Upgrade_Button(["../assets/broot.png"],(1410,20),0,(150,150),pgm,button_upgrade_pic, 0), 2)
+    pgm.add_object(Upgrade_Button(["../assets/broot.png"],(1240,20),0,(150,150),pgm,button_upgrade_root, 2), 2)
     while (1):
         ant(pgm, CONST_POS)
         last = pygame.time.get_ticks()

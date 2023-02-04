@@ -11,14 +11,29 @@ import pygame
 
 class Upgrade_Button(Game_Object):
     def __init__(self, texturepath: list, location: tuple,
-                 rotation: int, scale: tuple, game_ref: Game, callback_function):
+                 rotation: int, scale: tuple, game_ref: Game, callback_function, type: int):
         super().__init__(location=location, rotation=rotation,
                          scale=scale, game_ref=game_ref)
         self.sprite = Animation(self.location, self.rotation,
                                 self.scale, texturepath, 0.1)
         self.sprite.play(loop=False)
         self.callback = callback_function
-        self.upgrade_level = 0
+        if type == 0:
+            self.upgrade_level = 0
+            self.prix_water = 8
+            self.prix_min = 3
+        if type == 1:
+            self.upgrade_level = 1
+            self.prix_water = 5
+            self.prix_min = 2
+        if type == 2:
+            self.upgrade_level = 1
+            self.prix_water = 6
+            self.prix_min = 4
+        if type == 3:
+            self.upgrade_level = 1
+            self.prix_water = 8
+            self.prix_min = 5
 
     def event_tick(self, delta_time: float, fps: float):
         self.collide_rect = self.sprite.get_rect(self.location, self.rotation)
@@ -30,6 +45,7 @@ class Upgrade_Button(Game_Object):
 
     def event_clicked(self, hit_location: tuple):
         self.callback(self.game_ref, self)
+
 
 def button_upgrade_laser(game: Game, upgrade: Upgrade_Button):
     if game.check_thune(game.g_root_size_cost[0], game.g_root_size_cost[1]) == True:
