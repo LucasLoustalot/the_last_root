@@ -10,7 +10,7 @@ from game import *
 from player import *
 from ant import *
 import time
-CONST_POS = (800, 400)
+CONST_POS = (600, 200)
 
 def main():
     pgm = Game((1600,800),60,"The Last Root","../assets/photobg.jpg")
@@ -21,6 +21,7 @@ def main():
         if pgm.nb_ant == 0:
             pgm.wave += 1
             ant(pgm, CONST_POS)
+                
     return (0)
 
 if __name__ == '__main__':
