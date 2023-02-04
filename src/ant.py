@@ -41,7 +41,6 @@ def ant(game: Game, pos: tuple):
     game.nb_ant = int(game.nb)
     for i in range(0, game.nb_ant):
         random1 = random.choice([-50, 1500])
-        print(angle_player(pos, (random1, 600)))
         game.add_object(Ant(["../assets/ant.png","../assets/ant.png"],
         (random1, 600), angle_player(pos, (random1, 600)), (70, 70), game), 1)
 
