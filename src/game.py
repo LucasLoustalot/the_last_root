@@ -127,6 +127,7 @@ class Game():
         self.players.pop(player_id)
 
     def add_object(self, Object: Game_Object, layer: int) -> int:
+        """Add an object and return an object id"""
         Object.layer = layer
         if str(layer) not in self.objects:
             self.objects[str(layer)] = {}
@@ -138,6 +139,8 @@ class Game():
         self.objects[str(layer)][str(Object_id)] = None
 
     def __garbage_collector(self):
+        """Private Method
+        - Internal use only"""
         for layer, layer_obj in self.objects.items():
             for key in layer_obj:
                 if layer_obj[key] == None:
