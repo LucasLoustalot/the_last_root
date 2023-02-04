@@ -11,8 +11,6 @@ import pygame
 import random
 import math
 import time
-antl = []
-
 
 class Ant(Game_Object):
     """Ant Specific Class"""
