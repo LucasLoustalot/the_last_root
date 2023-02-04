@@ -23,6 +23,10 @@ def main():
     (200,200),0,(500,100),pgm,ditnon,"Dit non"),2)
     while (1):
         pgm.update()
+        if pgm.nb_ant == 0:
+            pgm.wave += 1
+            ant(pgm, CONST_POS)
+                
     return (0)
 
 if __name__ == '__main__':
