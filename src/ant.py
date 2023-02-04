@@ -46,5 +46,5 @@ def angle_player(pos, pos2):
     x1, y1 = pos
     x2, y2 = pos2
     x_diff = x2 - x1
-    y_diff = y2 - y1git
+    y_diff = y2 - y1
     return math.degrees(math.atan2(y_diff, x_diff))
