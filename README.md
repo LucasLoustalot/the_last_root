@@ -27,5 +27,5 @@ Améliorations:
   - Agrandir Racines de surface (8 paliers (40 minéraux 40 eau cout x1.5))
 
 Dangers:
-  -La pluie acide (fait perdre le l'eau à la plante, et infige des dégâts)
-  -Formies mutantes (dégâts)
+  - La pluie acide (fait perdre le l'eau à la plante, et infige des dégâts)
+  - Formies mutantes (dégâts)
