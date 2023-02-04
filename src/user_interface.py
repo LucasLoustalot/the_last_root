@@ -20,7 +20,7 @@ class Upgrade_Button(Game_Object):
         self.callback = callback_function
         self.upgrade_level = 0
 
-    def event_tick(self, delta_time: int):
+    def event_tick(self, delta_time: float, fps: float):
         self.collide_rect = self.sprite.get_rect(self.location, self.rotation)
         frame = self.sprite.get_frame(delta_time)
         self.game_ref.window.blit(frame, self.location)

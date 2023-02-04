@@ -1,8 +1,8 @@
 ##
-## EPITECH PROJECT, 2023
-## ant.py
-## File description:
-## ant.py
+# EPITECH PROJECT, 2023
+# ant.py
+# File description:
+# ant.py
 ##
 
 from game import *
@@ -13,20 +13,39 @@ import math
 import time
 antl = []
 
+
 class Ant(Game_Object):
     """Ant Specific Class"""
 
     def __init__(self, texturespath: list, location: tuple,
-                 rotation: int, scale: tuple, game_ref: Game):
-        super().__init__(location=location, rotation=rotation,
+                 rotation: int, scale: tuple, game_ref: Game, target_loc: tuple):
+        super().__init__(location=location, rotation=0,
                          scale=scale, game_ref=game_ref)
+        print(rotation)
+        self.flip = True if rotation < 120 else False
         self.health = 100
         self.sprite = Animation(self.location, self.rotation,
-        self.scale, texturespath, 0.1)
+                                self.scale, texturespath, 0.1)
         self.sprite.play(loop=False)
+        self.target_location = target_loc
+        self.speed = 100
 
+    def event_tick(self, delta_time: float, fps: float):
+
+        err = 1
+        sp = self.speed / fps
+        if self.flip == True:
+            sp = sp * -1
+        if not (self.location[0] <= self.target_location[0] + err and
+                self.location[0] >= self.target_location[0] - err):
+            self.location = (
+                self.location[0] + math.cos(self.rotation) * sp, self.location[1])
+
+<<<<<<< HEAD
     def event_tick(self, delta_time: int):
         self.location = (self.location[0] + 10, self.location[1])
+=======
+>>>>>>> zombie
         self.collide_rect = self.sprite.get_rect(self.location, self.rotation)
         frame = self.sprite.get_frame(delta_time)
         self.game_ref.window.blit(frame, self.location)
@@ -36,13 +55,20 @@ class Ant(Game_Object):
         self.game_ref.nb_ant -= 1
         return
 
+
 def ant(game: Game, pos: tuple):
     game.nb = game.nb + 0.25 + round(random.uniform(0.1, 0.4), 1)
     game.nb_ant = int(game.nb)
     for i in range(0, game.nb_ant):
         random1 = random.choice([-50, 1500])
+<<<<<<< HEAD
         game.add_object(Ant(["../assets/ant.png","../assets/ant.png"],
         (random1, 600), angle_player(pos, (random1, 600)), (70, 70), game), 1)
+=======
+        game.add_object(Ant(["../assets/ant.png", "../assets/ant.png"], (random1, 600),
+                            angle_player(pos, (random1, 600)), (70, 70), game, pos), 1)
+
+>>>>>>> zombie
 
 def angle_player(pos, pos2):
     x1, y1 = pos
