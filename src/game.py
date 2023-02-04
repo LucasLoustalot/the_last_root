@@ -111,7 +111,6 @@ class Game():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 for layer, layer_obj in self.objects.items():
                     for obj in layer_obj:
-                        print("obj iter")
                         if obj.collide_rect.collidepoint(event.pos):
                             obj.event_clicked(event.pos)
 
