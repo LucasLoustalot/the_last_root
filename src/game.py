@@ -134,14 +134,14 @@ class Game():
         self.m_income = 0.05
         self.w_income = 0.1
         # sprites
-        self.root_pos = [(735,678)]
+        self.root_pos = [(735,625),(585,625),(435,625),(285,625),(40,625),(0,625)]
         self.gnd_root_sp = [pygame.image.load(
-            "../assets/new_roots/racine_" + str(x + 1) + "_sans_acide.png") for x in range(0, 4)]
+            "../assets/new_roots/racine_" + str(x + 1) + "_sans_acide.png") for x in range(0, 5)]
         self.sticky_roots_sp = [pygame.image.load(
-            "../assets/new_roots/acide_racine_" + str(x+1) + ".png") for x in range(0, 4)]
+            "../assets/new_roots/acide_racine_" + str(x+1) + ".png") for x in range(0, 5)]
 
         # (current/max)
-        self.ground_root_size = (1, 8)
+        self.ground_root_size = (0, 4)
         self.surface_root_size = (1, 8)
         self.sticky_roots = (1, 8)
         self.shield_roots = (1, 3)
@@ -242,14 +242,15 @@ class Game():
                     for key in layer_obj:
                         if layer_obj[key].collide_rect.collidepoint(event.pos):
                             layer_obj[key].event_clicked(event.pos)
+                            return
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     exit()
 
     def draw_upgrades(self):
-        self.window.blit(self.gnd_root_sp[self.ground_root_size[0] - 1],self.root_pos[self.ground_root_size[0] - 1])
-        self.window.blit(self.sticky_roots_sp[self.sticky_roots[0] - 1],self.root_pos[self.ground_root_size[0] - 1])
+        self.window.blit(self.gnd_root_sp[self.ground_root_size[0]],self.root_pos[self.ground_root_size[0]])
+        #self.window.blit(self.sticky_roots_sp[self.sticky_roots[0] - 1],self.root_pos[self.ground_root_size[0] - 1])
         return
 
     def update(self):
