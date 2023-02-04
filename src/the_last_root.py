@@ -19,13 +19,11 @@ def main():
     pgm.add_object(Upgrade_Button(["../assets/broot.png"],(1270,5),0,(150,150),pgm,button_upgrade_floor), 2)
     pgm.add_object(Upgrade_Button(["../assets/broot.png"],(1100,5),0,(150,150),pgm,button_upgrade_pic), 2)
     pgm.add_object(Upgrade_Button(["../assets/broot.png"],(930, 5),0,(150,150),pgm,button_upgrade_root), 2)
-    ant(pgm, CONST_POS)
 
     while (1):
+        ant(pgm, CONST_POS)
+        last = pygame.time.get_ticks()
         pgm.update()
-        if pgm.nb_ant == 0:
-            pgm.wave += 1
-            ant(pgm, CONST_POS)
     return (0)
 
 if __name__ == '__main__':
