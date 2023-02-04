@@ -33,12 +33,13 @@ class Ant(Game_Object):
 
     def event_tick(self, delta_time: float, fps: float):
 
-        err = 1
+        err = 50
+        correct = 187
         sp = self.speed / fps
         if self.flip == True:
             sp = sp * -1
-        if not (self.location[0] <= self.target_location[0] + err and
-                self.location[0] >= self.target_location[0] - err):
+        if not (self.location[0] <= self.target_location[0] + err + correct and
+                self.location[0] >= self.target_location[0] - err + correct):
             self.location = (
                 self.location[0] + math.cos(self.rotation) * sp, self.location[1])
 
@@ -64,7 +65,7 @@ def ant(game: Game, pos: tuple):
     if nb_spawn != int(game.nb):
         clock_time += game.clock.tick(60)
     if clock_time >= delay :
-        random1 = random.choice([-50, 1500])
+        random1 = random.choice([-50, 1900])
         nb_spawn += 1
         game.add_object(Ant(["../assets/ant.png"], (random1, 600),
             angle_player(pos, (random1, 600)), (70, 70), game, pos), 1)
