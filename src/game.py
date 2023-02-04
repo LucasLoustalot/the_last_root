@@ -187,7 +187,7 @@ class Game():
                     exit()
 
     def passive_income(self):
-        
+        return
 
     def update(self):
         """Update the window and the game by refreshing every game object added"""
