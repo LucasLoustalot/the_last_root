@@ -134,6 +134,7 @@ class Game():
         self.m_income = 0.05
         self.w_income = 0.1
         # sprites
+        self.root_pos = [(735,678)]
         self.gnd_root_sp = [pygame.image.load(
             "../assets/new_roots/racine_" + str(x + 1) + "_sans_acide.png") for x in range(0, 4)]
         self.sticky_roots_sp = [pygame.image.load(
@@ -247,8 +248,8 @@ class Game():
                     exit()
 
     def draw_upgrades(self):
-        self.window.blit(self.gnd_root_sp[self.ground_root_size[0] - 1],(993,678))
-        self.window.blit(self.sticky_roots_sp[self.sticky_roots[0] - 1],(993,678))
+        self.window.blit(self.gnd_root_sp[self.ground_root_size[0] - 1],self.root_pos[self.ground_root_size[0] - 1])
+        self.window.blit(self.sticky_roots_sp[self.sticky_roots[0] - 1],self.root_pos[self.ground_root_size[0] - 1])
         return
 
     def update(self):
