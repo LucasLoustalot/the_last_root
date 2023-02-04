@@ -20,6 +20,13 @@ Objectif:
 Une barre de vie
 Les améliorations des défenses permettent d'améliorer la vie de la plante.
 
+Racines dans le sol : 6 levels
+- LVL1: 
+
+Fourmies: Augmentation du nombre + Augmentation des dégâts
+
+
+
 Améliorations:
   - Taille des racines (minéraux +15% eau +20%) (25 eau, 10 minéraux) (cout x3))
   - Racine sève collante sur les racines (8 paliers (+ 20% déagts) (30 minéraux, 10 eau) (coût x2)
