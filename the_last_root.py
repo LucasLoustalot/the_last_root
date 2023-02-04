@@ -11,7 +11,7 @@ from player import *
 
 def main():
     pgm = Game((1600,800),60,"The Last Root","photobg.jpg")
-    pgm.add_object(Player("photobg.jpg",(0,0),0,(100,100),pgm),1)
+    pgm.add_object(Player(["flower1.png","photobg.jpg"],(300,300),0,(400,400),pgm),1)
     while (1):
         pgm.update()
     return (0)

@@ -7,13 +7,35 @@
 
 import pygame
 
+
 class Animation(pygame.sprite.Sprite):
-    def __init__(self, location: tuple, rotation: int, scale: tuple, frames_path: list):
+    def __init__(self, location: tuple, rotation: int, scale: tuple,
+                frames_path: list, delay_ms: int):
+        super().__init__()
         self.frames = []
+        self.delay_ms = delay_ms
+        self._index = 0
+        self._clock = 0
         for i in range(0, len(frames_path)):
-            self.frames[i] = pygame.image.load(frames_path[i]).convert_alpha()
+            self.frames.append(pygame.image.load(
+                frames_path[i]).convert_alpha())
             self.frames[i] = pygame.transform.scale(self.frames[i], scale)
             self.frames[i] = pygame.transform.rotate(self.frames[i], rotation)
+        self._max_index = len(self.frames)
+
+    def get_frame(self, delta_time: int):
+        self._clock += delta_time
+        if self._clock >= self.delay_ms:
+            self._clock = 0
+            if self._index >= self._max_index:
+                self._index = 0
+            frame = self.frames[self._index]
+            self._index += 1
+            return (frame)
+        else :
+            if self._index >= self._max_index:
+                self._index = 0
+            return (self.frames[self._index])
 
 
 class Game_Object(pygame.sprite.Sprite):
@@ -27,7 +49,7 @@ class Game_Object(pygame.sprite.Sprite):
         self.rotation = rotation
         self.scale = scale
 
-    def event_tick(self):
+    def event_tick(self, delta_time: int):
         """Called One Per Frame"""
         return
 
@@ -83,6 +105,6 @@ class Game():
         self.window.blit(self._background, (0, 0))
         for layer, layer_obj in self.objects.items():
             for obj in layer_obj:
-                obj.event_tick()
+                obj.event_tick(self.clock.tick() / 1000)
         pygame.display.flip()
         return
