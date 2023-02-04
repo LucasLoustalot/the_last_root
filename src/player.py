@@ -19,8 +19,8 @@ class Player(Game_Object):
         self.health = 100
         self.upgrades = []
         self.sprite = Animation(self.location, self.rotation,
-        self.scale, texturespath, 0.1)
-        self.sprite.play()
+                                self.scale, texturespath, 0.1)
+        self.sprite.play(loop=False)
 
     def event_tick(self, delta_time: int):
         frame = self.sprite.get_frame(delta_time)

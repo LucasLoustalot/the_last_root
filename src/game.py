@@ -7,6 +7,7 @@
 
 import pygame
 
+
 class Game_Object(pygame.sprite.Sprite):
     """Master game object, parent of all other object classes.
     - Do not add gameplay specific functions here."""
@@ -27,6 +28,7 @@ class Game_Object(pygame.sprite.Sprite):
         """Called When Clicked"""
         return
 
+
 class Animation(pygame.sprite.Sprite):
     def __init__(self, location: tuple, rotation: int, scale: tuple,
                  frames_path: list, delay_ms: float):
@@ -36,6 +38,7 @@ class Animation(pygame.sprite.Sprite):
         self._index = 0
         self._clock = 0
         self.is_playing = 0
+        self.loop = True
         for i in range(0, len(frames_path)):
             self.frames.append(pygame.image.load(
                 frames_path[i]).convert_alpha())
@@ -43,12 +46,13 @@ class Animation(pygame.sprite.Sprite):
             self.frames[i] = pygame.transform.rotate(self.frames[i], rotation)
         self._max_index = len(self.frames)
 
-    def play(self):
+    def play(self, loop: bool):
         self.is_playing = True
+        self.loop = loop
 
     def stop(self):
         self.is_playing = False
-    
+
     def toggle_play(self):
         self.is_playing = not self.is_playing
 
@@ -60,13 +64,18 @@ class Animation(pygame.sprite.Sprite):
             self._clock = 0
             if self._index >= self._max_index:
                 self._index = 0
+                if self.loop == False:
+                    self.is_playing = False
             frame = self.frames[self._index]
             self._index += 1
             return (frame)
         else:
             if self._index >= self._max_index:
                 self._index = 0
+                if self.loop == False:
+                    self.is_playing = False
             return (self.frames[self._index])
+
 
 class Game():
     """Master class of the game, it contains:
