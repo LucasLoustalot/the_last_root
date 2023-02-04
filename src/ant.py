@@ -41,7 +41,7 @@ class Ant(Game_Object):
             self.location = (
                 self.location[0] + math.cos(self.rotation) * sp, self.location[1])
 
-    def event_tick(self, delta_time: int):
+    def event_tick(self, delta_time: float, fps: float):
         self.location = (self.location[0] + 10, self.location[1])
         self.collide_rect = self.sprite.get_rect(self.location, self.rotation)
         frame = self.sprite.get_frame(delta_time)
