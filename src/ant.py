@@ -41,11 +41,8 @@ class Ant(Game_Object):
             self.location = (
                 self.location[0] + math.cos(self.rotation) * sp, self.location[1])
 
-<<<<<<< HEAD
     def event_tick(self, delta_time: int):
         self.location = (self.location[0] + 10, self.location[1])
-=======
->>>>>>> zombie
         self.collide_rect = self.sprite.get_rect(self.location, self.rotation)
         frame = self.sprite.get_frame(delta_time)
         self.game_ref.window.blit(frame, self.location)
@@ -61,14 +58,9 @@ def ant(game: Game, pos: tuple):
     game.nb_ant = int(game.nb)
     for i in range(0, game.nb_ant):
         random1 = random.choice([-50, 1500])
-<<<<<<< HEAD
-        game.add_object(Ant(["../assets/ant.png","../assets/ant.png"],
-        (random1, 600), angle_player(pos, (random1, 600)), (70, 70), game), 1)
-=======
         game.add_object(Ant(["../assets/ant.png", "../assets/ant.png"], (random1, 600),
                             angle_player(pos, (random1, 600)), (70, 70), game, pos), 1)
 
->>>>>>> zombie
 
 def angle_player(pos, pos2):
     x1, y1 = pos
