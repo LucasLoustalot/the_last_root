@@ -20,11 +20,11 @@ class Ant(Game_Object):
         self.health = 100
         self.sprite = Animation(self.location, self.rotation,
         self.scale, texturespath, 0.1)
-        self.sprite.play(loop=True)
+        self.sprite.play(loop=False)
 
     def event_tick(self, delta_time: int):
+        self.collide_rect = self.sprite.get_rect(self.location, self.rotation)
         frame = self.sprite.get_frame(delta_time)
-        self.collide_rect = frame.get_rect()
         self.game_ref.window.blit(frame, self.location)
 
     def event_clicked(self, hit_pos: tuple):
