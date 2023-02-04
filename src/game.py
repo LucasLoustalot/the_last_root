@@ -129,13 +129,10 @@ class Game():
     def add_object(self, Object: Game_Object, layer: int) -> int:
         Object.layer = layer
         if str(layer) not in self.objects:
-            self.objects[str(layer)] = []
+            self.objects[str(layer)] = {}
         Object.object_id = len(self.objects[str(layer)])
-        self.objects[str(layer)].append(Object)
+        self.objects[str(layer)][str(Object.object_id)] = Object
         return (Object.object_id)
-
-    def remove_object(self, Object: Game_Object, layer: int):
-        self.objects[str(layer)].remove(Object)
 
     def remove_object_by_id(self, layer: int, Object_id: int):
         self.objects[str(layer)].pop(Object_id)
@@ -149,9 +146,9 @@ class Game():
                 exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 for layer, layer_obj in self.objects.items():
-                    for obj in layer_obj:
-                        if obj.collide_rect.collidepoint(event.pos):
-                            obj.event_clicked(event.pos)
+                    for key in layer_obj:
+                        if layer_obj[key].collide_rect.collidepoint(event.pos):
+                            layer_obj[key].event_clicked(event.pos)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
@@ -162,7 +159,7 @@ class Game():
         self.__update_event()
         self.window.blit(self._background, (0, 0))
         for layer, layer_obj in self.objects.items():
-            for obj in layer_obj:
-                obj.event_tick(self.clock.tick() / 1000)
+            for key in layer_obj:
+                layer_obj[key].event_tick(self.clock.tick() / 1000)
         pygame.display.flip()
         return
