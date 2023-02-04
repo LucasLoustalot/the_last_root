@@ -29,8 +29,7 @@ class Upgrade_Button(Game_Object):
         self.upgrade_level = level
 
     def event_clicked(self, hit_location: tuple):
-        print("Truc")
-        #self.callback(self.game_ref, hit_location)
+        self.callback(self.game_ref, hit_location)
 def button_upgrade_laser():
     return
 def button_upgrade_floor():
