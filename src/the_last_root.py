@@ -10,10 +10,10 @@ from game import *
 from player import *
 from ant import *
 from user_interface import *
-CONST_POS = (768, 325)
+CONST_POS = (768, 275)
 
 def main():
-    pgm = Game((1920,1080),60,"The Last Root","../assets/photobg.jpg")
+    pgm = Game((1920,1080),60,"The Last Root","../assets/BG.png")
     pgm.add_object(Player(["../assets/flower/flower_pxl.png"],CONST_POS,0,(400,400),pgm),0)
     pgm.add_object(Upgrade_Button(["../assets/broot.png"],(1750,20),0,(150,150),pgm,button_upgrade_laser, 3), 2)
     pgm.add_object(Upgrade_Button(["../assets/broot.png"],(1580,20),0,(150,150),pgm,button_upgrade_floor, 1), 2)
@@ -27,4 +27,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
