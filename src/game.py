@@ -124,6 +124,10 @@ class Game():
                         print("event pos " + str(event.pos))
                         if obj.collide_rect.collidepoint(event.pos):
                             obj.event_clicked(event.pos)
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    pygame.quit()
+                    exit()
 
     def update(self):
         """Update the window and the game by refreshing every game object added"""
