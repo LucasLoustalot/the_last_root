@@ -26,6 +26,7 @@ class Ant(Game_Object):
         self.sprite.play(loop=False)
 
     def event_tick(self, delta_time: int):
+        self.location = (self.location[0] + 10, self.location[1])
         self.collide_rect = self.sprite.get_rect(self.location, self.rotation)
         frame = self.sprite.get_frame(delta_time)
         self.game_ref.window.blit(frame, self.location)
