@@ -129,7 +129,7 @@ class Game():
         self.objects = {}
         self.players = []
 
-        self.mineral = 4
+        self.mineral = 3
         self.water = 6
         self.m_income = 0.05
         self.w_income = 0.1
@@ -138,8 +138,10 @@ class Game():
         self.surface_root_size = (1, 8)
         self.sticky_roots = (1, 8)
         self.shield_roots = (1, 3)
+        self.pic_upgrade = (1,3)
         # eau,minéraux
         self.g_root_size_cost = (25, 10)
+        self.pic_cost = (25, 10)
         self.sticky_root_cost = (10, 30)
         self.shield_roots_cost = (10, 40)
         self.surface_root_cost = (30, 40)
@@ -149,9 +151,18 @@ class Game():
         self.players.append(player)
         return (len(self.players) - 1)
 
-    def passive_income(self, fps: int):
-        self.water += self.m_income / fps
-        self.mineral += 0.5 / fps
+    def passive_income(self, fps: float):
+        self.water += self.w_income / fps
+        self.mineral += self.m_income / fps
+
+    def check_thune(self, water: int, mineral: int) -> bool:
+        if self.water >= water and self.mineral >= mineral:
+            return (True)
+        else :
+            return (False)
+
+    def upgrade_gnd_root(self):
+        self.
 
     def refresh_upgrades(self):
 
@@ -210,6 +221,8 @@ class Game():
         self.__garbage_collector()
         tick = self.clock.tick(60)
         fps = 1000.0 / tick
+        self.passive_income(fps)
+        #print("Eau : " + str(self.water) + " Minerais : " + str(self.mineral))
         for layer, layer_obj in self.objects.items():
             for key in layer_obj:
                 layer_obj[key].event_tick(tick / 1000, fps)

@@ -32,10 +32,29 @@ class Upgrade_Button(Game_Object):
         self.callback(self.game_ref, self)
 
 def button_upgrade_laser(game: Game, upgrade: Upgrade_Button):
-    return
+    if game.check_thune(game.g_root_size_cost[0], game.g_root_size_cost[1]) == True:
+        game.upgrade_gnd_root()
+    else :
+        print("Not enough money")
+
 def button_upgrade_floor(game: Game, upgrade: Upgrade_Button):
-    return
+    print("upgrade floor")
+    if game.check_thune(game.surface_root_cost[0], game.surface_root_cost[1]) == True:
+        game.upgrade_gnd_root()
+    else :
+        print("Not enough money")
+
 def button_upgrade_pic(game: Game, upgrade: Upgrade_Button):
-    return
+    print("upgrade pic")
+    if game.check_thune(game.pic_cost[0], game.pic_cost[1]) == True:
+        game.upgrade_gnd_root()
+    else :
+        print("Not enough money")
+
 def button_upgrade_root(game: Game, upgrade: Upgrade_Button):
+    print("upgrade roots")
+    if game.check_thune(game.g_root_size_cost[0], game.g_root_size_cost[1]) == True:
+        game.upgrade_gnd_root()
+    else :
+        print("Not enough money")
     return
