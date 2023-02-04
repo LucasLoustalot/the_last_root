@@ -49,14 +49,9 @@ class Animation(pygame.sprite.Sprite):
         for i in range(0, len(frames_path)):
             self.frames.append(pygame.image.load(
                 frames_path[i]).convert_alpha())
-<<<<<<< HEAD
             if location[0] == 0:
                 self.frames[i] = pygame.transform.flip(
                     self.frames[i], False, True)
-=======
-            if location[0] == -50:
-                self.frames[i] = pygame.transform.flip(self.frames[i], False, True)
->>>>>>> zombie
             self.frames[i] = pygame.transform.scale(self.frames[i], scale)
             self.frames[i] = pygame.transform.rotate(self.frames[i], rotation)
             self.frames_rect.append(self.frames[i].get_rect(
