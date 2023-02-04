@@ -18,6 +18,7 @@ class Game_Object(pygame.sprite.Sprite):
         self.location = location
         self.rotation = rotation
         self.scale = scale
+        self.layer = 0
         self.collide_rect = None
 
     def event_tick(self, delta_time: int):
@@ -34,6 +35,7 @@ class Animation(pygame.sprite.Sprite):
                  frames_path: list, delay_ms: float):
         super().__init__()
         self.frames = []
+        self.frames_rect = []
         self.delay_ms = delay_ms
         self._index = 0
         self._clock = 0
@@ -44,6 +46,8 @@ class Animation(pygame.sprite.Sprite):
                 frames_path[i]).convert_alpha())
             self.frames[i] = pygame.transform.scale(self.frames[i], scale)
             self.frames[i] = pygame.transform.rotate(self.frames[i], rotation)
+            self.frames_rect.append(self.frames[i].get_rect(
+                topleft=(location[0], location[1])))
         self._max_index = len(self.frames)
 
     def play(self, loop: bool):
@@ -55,6 +59,17 @@ class Animation(pygame.sprite.Sprite):
 
     def toggle_play(self):
         self.is_playing = not self.is_playing
+
+    def get_rect(self, location: tuple, rotation: int):
+        if self._index >= self._max_index:
+            self._index = 0
+        sprite = self.frames[self._index]
+        sprite_rect = sprite.get_rect(topleft=location)
+        sprite_rect.center = (sprite_rect.width // 2) + \
+            location[0], (sprite_rect.height // 2) + + location[1]
+        self.frames_rect[self._index] = sprite_rect
+        self.frames[self._index] = pygame.transform.rotate(sprite, rotation)
+        return (self.frames_rect[self._index])
 
     def get_frame(self, delta_time: int):
         if self.is_playing == False:
@@ -103,6 +118,7 @@ class Game():
         self.objects = {}
 
     def add_object(self, Object: Game_Object, layer: int):
+        Object.layer = layer
         if str(layer) not in self.objects:
             self.objects[str(layer)] = []
         self.objects[str(layer)].append(Object)
@@ -120,8 +136,6 @@ class Game():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 for layer, layer_obj in self.objects.items():
                     for obj in layer_obj:
-                        print("obj iter")
-                        print("event pos " + str(event.pos))
                         if obj.collide_rect.collidepoint(event.pos):
                             obj.event_clicked(event.pos)
             if event.type == pygame.KEYDOWN:
