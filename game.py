@@ -7,6 +7,25 @@
 
 import pygame
 
+class Game_Object(pygame.sprite.Sprite):
+    """Master game object, parent of all other object classes.
+    - Do not add gameplay specific functions here."""
+
+    def __init__(self, location: tuple, rotation: int, scale: tuple, game_ref):
+        super().__init__()
+        self.game_ref = game_ref
+        self.location = location
+        self.rotation = rotation
+        self.scale = scale
+        self.collide_rect = None
+
+    def event_tick(self, delta_time: int):
+        """Called One Per Frame"""
+        return
+
+    def event_clicked(self, hit_location: tuple):
+        """Called When Clicked"""
+        return
 
 class Animation(pygame.sprite.Sprite):
     def __init__(self, location: tuple, rotation: int, scale: tuple,
@@ -49,27 +68,6 @@ class Animation(pygame.sprite.Sprite):
                 self._index = 0
             return (self.frames[self._index])
 
-
-class Game_Object(pygame.sprite.Sprite):
-    """Master game object, parent of all other object classes.
-    - Do not add gameplay specific functions here."""
-
-    def __init__(self, location: tuple, rotation: int, scale: tuple, game_ref):
-        super().__init__()
-        self.game_ref = game_ref
-        self.location = location
-        self.rotation = rotation
-        self.scale = scale
-
-    def event_tick(self, delta_time: int):
-        """Called One Per Frame"""
-        return
-
-    def event_clicked(self):
-        """Called When Clicked"""
-        return
-
-
 class Game():
     """Master class of the game, it contains:
     - the list of all active object
@@ -110,6 +108,12 @@ class Game():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                for layer, layer_obj in self.objects.items():
+                    for obj in layer_obj:
+                        print("obj iter")
+                        if obj.collide_rect.collidepoint(event.pos):
+                            obj.event_clicked(event.pos)
 
     def update(self):
         """Update the window and the game by refreshing every game object added"""
