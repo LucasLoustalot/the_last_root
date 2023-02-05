@@ -14,10 +14,14 @@ class Effect(Game_Object):
         super().__init__(location=location, rotation=0,
                          scale=scale, game_ref=game_ref)
         self.sprite = Animation(self.location, self.rotation,
-                                self.scale, texturespath, 0.1)
+                                self.scale, texturespath, 0.03)
         self.sprite.play(loop=False)
+        self.sprite.is_playing = True
 
     def event_tick(self, delta_time: float, fps: float):
+        frame = self.sprite.get_frame(delta_time)
+        if self.sprite.is_playing == True:
+            self.game_ref.window.blit(frame, self.location)
         if self.sprite.is_playing == False:
             self.game_ref.remove_object_by_id(self.layer, self.object_id)
 
