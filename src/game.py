@@ -228,11 +228,12 @@ class Game():
             self.solar_power_cost[0] + mt[0], self.solar_power_cost[1] + mt[1])
 
     def upgrade_pic(self):
-        mult = 1.5
+        mult = 1.6
         self.pic_upgrade = (self.pic_upgrade[0] + 1, self.pic_upgrade[1])
         self.decrase_thune(self.pic_cost[0], self.pic_cost[1])
         self.max_health += 30
         self.health = self.max_health
+        self.damage += 1
         self.pic_cost = (int(self.pic_cost[0] * mult), int(self.pic_cost[1] * mult))
 
     def refresh_upgrades(self):
