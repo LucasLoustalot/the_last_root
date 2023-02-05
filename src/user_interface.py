@@ -36,33 +36,35 @@ class Upgrade_Button(Game_Object):
         self.callback = callback_function
         self.font = pygame.font.Font("../assets/Minecraft.ttf", 20)
         if type == 0:
-            self.damage = 'o'
+            self.damage = "N/A"
             self.upgrade_level = 0
             self.prix_water = self.game_ref.pic_cost[0]
             self.prix_min = self.game_ref.pic_cost[1]
         if type == 1:
-            self.damage = 'o'
+            self.damage = str(int(self.game_ref.damage))
             self.upgrade_level = 1
             self.prix_water = self.game_ref.surface_root_cost[0]
             self.prix_min = self.game_ref.surface_root_cost[1]
         if type == 2:
-            self.damage = 'o'
+            self.damage = None
             self.upgrade_level = 1
             self.prix_water = self.game_ref.g_root_size_cost[0]
             self.prix_min = self.game_ref.g_root_size_cost[1]
         if type == 3:
-            self.damage = 'os'
+            self.damage = "1000"
             self.upgrade_level = 1
             self.prix_water = self.game_ref.solar_power_cost[0]
             self.prix_min = self.game_ref.solar_power_cost[1]
-        self.text_dmg = self.damage
+        if self.damage != None:
+            self.text_dmg = self.damage
         self.text_lvl = str(self.upgrade_level)
         self.text_water = str(self.prix_water)
         self.text_min = str(self.prix_min)
         self.textlvl = self.font.render(self.text_lvl, True, (255, 255, 255))
         self.textwater = self.font.render(self.text_water, True, (255, 255, 255))
         self.textmin = self.font.render(self.text_min, True, (255, 255, 255))
-        self.textdmg = self.font.render(self.text_dmg, True, (255, 255, 255))
+        if self.damage != None:
+            self.textdmg = self.font.render(self.text_dmg, True, (255, 255, 255))
 
     def referesh_text(self):
         self.text_lvl = str(self.upgrade_level)
@@ -72,7 +74,8 @@ class Upgrade_Button(Game_Object):
         self.textlvl = self.font.render(self.text_lvl, True, (255, 255, 255))
         self.textwater = self.font.render(self.text_water, True, (255, 255, 255))
         self.textmin = self.font.render(self.text_min, True, (255, 255, 255))
-        self.textdmg = self.font.render(self.text_dmg, True, (255, 255, 255))
+        if self.damage != None:
+            self.textdmg = self.font.render(self.text_dmg, True, (255, 255, 255))
 
     def event_tick(self, delta_time: float, fps: float):
         self.collide_rect = self.sprite.get_rect(self.location, self.rotation)
@@ -81,11 +84,12 @@ class Upgrade_Button(Game_Object):
         self.game_ref.window.blit(
             self.textlvl, (self.location[0] + 30, self.location[1] + 110))
         self.game_ref.window.blit(
-            self.textwater, (self.location[0] + 80, self.location[1] + 85))
+            self.textwater, (self.location[0] + 80, self.location[1] + 90))
         self.game_ref.window.blit(
-            self.textmin, (self.location[0] + 80, self.location[1] + 110))
-        self.game_ref.window.blit(
-            self.textdmg, (self.location[0]+ 30, self.location[1]+ 85))
+            self.textmin, (self.location[0] + 80, self.location[1] + 115))
+        if self.damage != None:
+            self.game_ref.window.blit(
+                self.textdmg, (self.location[0]+ 50, self.location[1]+ 178))
 
     def set_upgrade_level(self, level: int):
         self.upgrade_level = level
