@@ -43,6 +43,15 @@ class Upgrade_Button(Game_Object):
             self.text_water, True, (255, 255, 255))
         self.textmin = self.font.render(self.text_min, True, (255, 255, 255))
 
+    def referesh_text(self):
+        self.text_lvl = str(self.upgrade_level)
+        self.text_water = str(self.prix_water)
+        self.text_min = str(self.prix_min)
+        self.textlvl = self.font.render(self.text_lvl, True, (255, 255, 255))
+        self.textwater = self.font.render(
+        self.text_water, True, (255, 255, 255))
+        self.textmin = self.font.render(self.text_min, True, (255, 255, 255))
+
     def event_tick(self, delta_time: float, fps: float):
         self.collide_rect = self.sprite.get_rect(self.location, self.rotation)
         frame = self.sprite.get_frame(delta_time)
@@ -59,35 +68,44 @@ class Upgrade_Button(Game_Object):
 
     def event_clicked(self, hit_location: tuple):
         self.callback(self.game_ref, self)
+        self.referesh_text()
 
 
 def button_upgrade_laser(game: Game, upgrade: Upgrade_Button):
     if game.check_thune(game.g_root_size_cost[0], game.g_root_size_cost[1]) == True:
         game.upgrade_gnd_root()
+        """ upgrade.prix_water = game.surface_root_cost[0]
+        upgrade.prix_min = game.surface_root_cost[1] """
     else:
-        print("Not enough money")
+        print("Upgrade not available")
 
 
 def button_upgrade_floor(game: Game, upgrade: Upgrade_Button):
     print("upgrade floor")
     if game.check_thune(game.surface_root_cost[0], game.surface_root_cost[1]) == True:
-        game.upgrade_gnd_root()
+        game.upgrade_surface_root()
+        upgrade.prix_water = game.surface_root_cost[0]
+        upgrade.prix_min = game.surface_root_cost[1]
     else:
-        print("Not enough money")
+        print("Upgrade not available")
 
 
 def button_upgrade_pic(game: Game, upgrade: Upgrade_Button):
     print("upgrade pic")
     if game.check_thune(game.pic_cost[0], game.pic_cost[1]) == True:
-        game.upgrade_gnd_root()
+        game.upgrade_pic()
+        upgrade.prix_water = game.pic_cost[0]
+        upgrade.prix_min = game.pic_cost[1]
     else:
-        print("Not enough money")
+        print("Upgrade not available")
 
 
 def button_upgrade_root(game: Game, upgrade: Upgrade_Button):
     print("upgrade roots")
     if game.check_thune(game.g_root_size_cost[0], game.g_root_size_cost[1]) == True:
         game.upgrade_gnd_root()
+        upgrade.prix_water = game.g_root_size_cost[0]
+        upgrade.prix_min = game.g_root_size_cost[1]
     else:
-        print("Not enough money")
+        print("Upgrade not available")
     return

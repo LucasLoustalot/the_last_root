@@ -143,16 +143,14 @@ class Game():
 
         # (current/max)
         self.ground_root_size = (0, 4)
-        self.surface_root_size = (1, 8)
+        self.surface_root_size = (1, 5)
         self.sticky_roots = (1, 8)
-        self.shield_roots = (1, 3)
         self.pic_upgrade = (1, 3)
         # eau,minéraux
         self.g_root_size_cost = (25, 10)
-        self.pic_cost = (25, 10)
+        self.pic_cost = (8, 3)
         self.sticky_root_cost = (10, 30)
-        self.shield_roots_cost = (10, 40)
-        self.surface_root_cost = (30, 40)
+        self.surface_root_cost = (5, 2)
 
     def add_player(self, player: Game_Object) -> int:
         """Add a player and return a player id"""
@@ -190,12 +188,15 @@ class Game():
             self.sticky_root_cost[0] * mult, self.sticky_root_cost[1] * mult)
 
     def upgrade_surface_root(self):
-        mult = 2
+        mult = [(-1,-1),(2,1),(1,0),(1,0),(1,0),(2,1),(2,1)]
+       
+        mt = mult[self.surface_root_size[0] - 1]
+        print(mt)
         self.surface_root_size = (
-            self.g_root_size_cost[0] + 1, self.g_root_size_cost[1])
-        self.decrase_thune(self.g_root_size_cost[0], self.g_root_size_cost[1])
+            self.surface_root_size[0] + 1, self.surface_root_size[1])
+        self.decrase_thune(self.surface_root_size[0], self.surface_root_size[1])
         self.surface_root_cost = (
-            self.surface_root_cost[0] * mult, self.surface_root_cost[1] * mult)
+            self.surface_root_size[0] + mt[0], self.surface_root_size[1] + mt[1])
 
     def upgrade_pic(self):
         mult = 2
