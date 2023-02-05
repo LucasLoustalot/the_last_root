@@ -7,7 +7,7 @@
 
 import pygame
 import random
-from sys import exit
+
 
 class Game_Object(pygame.sprite.Sprite):
     """Master game object, parent of all other object classes.
@@ -33,6 +33,9 @@ class Game_Object(pygame.sprite.Sprite):
 
     def event_destroyed(self):
         """Called When the object is destroyed"""
+        return
+    
+    def receive_damage(self, damage: int):
         return
 
 
@@ -149,7 +152,7 @@ class Game():
         self.sticky_roots_sp = [pygame.image.load(
             "../assets/new_roots/acide_racine_" + str(x + 1) + ".png") for x in range(0, 5)]
 
-       # (current/max)
+        # (current/max)
         self.ground_root_size = (1, 6)
         self.surface_root_size = (1, 5)
         self.sticky_roots = (1, 8)
@@ -168,8 +171,8 @@ class Game():
         return (len(self.players) - 1)
 
     def passive_income(self, fps: float):
-        self.water += self.w_income / fps
-        self.mineral += self.m_income / fps
+        self.water += self.w_income / (fps / 2)
+        self.mineral += self.m_income / (fps / 2)
 
     def check_thune(self, water: int, mineral: int) -> bool:
         if self.water >= water and self.mineral >= mineral:
@@ -182,7 +185,7 @@ class Game():
         self.mineral = self.mineral - mineral
 
     def upgrade_gnd_root(self):
-        mult = [(1, 1), (2, 1), (1, 0), (1, 0), (1, 0), (2, 1), (2, 1)]
+        mult = 2
         self.ground_root_size = (
             self.ground_root_size[0] + 1, self.ground_root_size[1])
         self.w_income += 0.05
@@ -200,7 +203,7 @@ class Game():
             self.sticky_root_cost[0] * mult, self.sticky_root_cost[1] * mult)
 
     def upgrade_surface_root(self):
-        mult = [(1, 1), (2, 1), (1, 0), (1, 0), (1, 0), (2, 1), (2, 1)]
+        mult = [(-1, -1), (2, 1), (1, 0), (1, 0), (1, 0), (2, 1), (2, 1)]
 
         mt = mult[self.surface_root_size[0] - 1]
         self.surface_root_size = (
@@ -240,7 +243,8 @@ class Game():
         obj.layer = layer
         if str(layer) not in self.objects:
             self.objects[str(layer)] = {}
-        obj.object_id = len(self.objects[str(layer)]) + random.randint(0, 999999)
+        obj.object_id = len(
+            self.objects[str(layer)]) + random.randint(0, 999999)
         self.objects[str(layer)][str(obj.object_id)] = obj
         return (obj.object_id)
 
@@ -261,7 +265,7 @@ class Game():
     def clear_objects(self):
         for layer, layer_obj in self.objects.items():
             for key in layer_obj:
-                if layer_obj[key] == None :
+                if layer_obj[key] == None:
                     continue
                 layer_obj[key].event_destroyed()
                 layer_obj[key] = None
@@ -297,6 +301,17 @@ class Game():
         # self.window.blit(self.sticky_roots_sp[self.sticky_roots[0] - 1],self.root_pos[self.sticky_roots[0] - 1])
         return
 
+    def do_ant_damage(self, fps: float):
+        for layer, layer_obj in self.objects.items():
+            for key in layer_obj:
+                if layer_obj[key] == None or layer_obj[key].collide_rect == None:
+                    continue
+                rct = self.surface_root_sp[self.surface_root_size[0]].get_rect(
+                    topleft=self.root_pos[self.ground_root_size[0] - 1])
+                if layer_obj[key].collide_rect.colliderect(rct):
+                    layer_obj[key].receive_damage(self.damage / fps)
+
+
     def update(self):
         """Update the window and the game by refreshing every game object added"""
         self.__update_event()
@@ -304,11 +319,11 @@ class Game():
         self.window.blit(self._background, (0, 0))
         tick = self.clock.tick(60)
         fps = 1000.0 / tick
+        self.do_ant_damage(fps)
         self.passive_income(fps)
-        # print("Eau : " + str(self.water) + " Minerais : " + str(self.mineral))
         for layer, layer_obj in self.objects.items():
             for key in layer_obj:
-                if layer_obj[key] == None :
+                if layer_obj[key] == None:
                     continue
                 layer_obj[key].event_tick(tick / 1000, fps)
                 if self.clearing == True:
