@@ -21,20 +21,20 @@ class Upgrade_Button(Game_Object):
         self.font = pygame.font.Font("../assets/Minecraft.ttf", 28)
         if type == 0:
             self.upgrade_level = 0
-            self.prix_water = 8
-            self.prix_min = 3
+            self.prix_water = self.game_ref.pic_cost[0]
+            self.prix_min = self.game_ref.pic_cost[1]
         if type == 1:
             self.upgrade_level = 1
-            self.prix_water = 5
-            self.prix_min = 2
+            self.prix_water = self.game_ref.surface_root_cost[0]
+            self.prix_min = self.game_ref.surface_root_cost[1]
         if type == 2:
             self.upgrade_level = 1
-            self.prix_water = 6
-            self.prix_min = 4
+            self.prix_water = self.game_ref.g_root_size_cost[0]
+            self.prix_min = self.game_ref.g_root_size_cost[1]
         if type == 3:
             self.upgrade_level = 1
-            self.prix_water = 8
-            self.prix_min = 5
+            self.prix_water = self.game_ref.pic_cost[0]
+            self.prix_min = self.game_ref.pic_cost[1]
         self.text_lvl = str(self.upgrade_level)
         self.text_water = str(self.prix_water)
         self.text_min = str(self.prix_min)
@@ -49,7 +49,7 @@ class Upgrade_Button(Game_Object):
         self.text_min = str(self.prix_min)
         self.textlvl = self.font.render(self.text_lvl, True, (255, 255, 255))
         self.textwater = self.font.render(
-        self.text_water, True, (255, 255, 255))
+            self.text_water, True, (255, 255, 255))
         self.textmin = self.font.render(self.text_min, True, (255, 255, 255))
 
     def event_tick(self, delta_time: float, fps: float):
@@ -74,6 +74,7 @@ class Upgrade_Button(Game_Object):
 def button_upgrade_laser(game: Game, upgrade: Upgrade_Button):
     if game.check_thune(game.g_root_size_cost[0], game.g_root_size_cost[1]) == True:
         game.upgrade_gnd_root()
+        upgrade.upgrade_level += 1
         """ upgrade.prix_water = game.surface_root_cost[0]
         upgrade.prix_min = game.surface_root_cost[1] """
     else:
@@ -86,6 +87,8 @@ def button_upgrade_floor(game: Game, upgrade: Upgrade_Button):
         game.upgrade_surface_root()
         upgrade.prix_water = game.surface_root_cost[0]
         upgrade.prix_min = game.surface_root_cost[1]
+        upgrade.upgrade_level += 1
+
     else:
         print("Upgrade not available")
 
@@ -96,6 +99,7 @@ def button_upgrade_pic(game: Game, upgrade: Upgrade_Button):
         game.upgrade_pic()
         upgrade.prix_water = game.pic_cost[0]
         upgrade.prix_min = game.pic_cost[1]
+        upgrade.upgrade_level += 1
     else:
         print("Upgrade not available")
 
@@ -106,6 +110,7 @@ def button_upgrade_root(game: Game, upgrade: Upgrade_Button):
         game.upgrade_gnd_root()
         upgrade.prix_water = game.g_root_size_cost[0]
         upgrade.prix_min = game.g_root_size_cost[1]
+        upgrade.upgrade_level += 1
     else:
         print("Upgrade not available")
     return
