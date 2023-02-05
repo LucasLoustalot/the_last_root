@@ -85,7 +85,9 @@ def damage(ant: Ant, fps: float):
     if (ant.game_ref.health <= 0):
         ant.game_ref.clear_objects()
         ant.game_ref.nb_ant -= 1
-        print("dead")
+        ant.game_ref.ground_root_size = (1, 0)
+        ant.game_ref.surface_root_size = (1, 0)
+        ant.game_ref.pic_upgrade = (0, 0)
 
 def ant(game: Game, pos: tuple):
     global clock_time, delay, nb_spawn
