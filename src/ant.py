@@ -60,9 +60,9 @@ class Ant(Game_Object):
         damage(self, fps)
 
     def event_clicked(self, hit_pos: tuple):
-        if self.game_ref.check_thune(self.game_ref.solar_power_cost[0] / self.game_ref.solar_power[0], self.game_ref.solar_power_cost[0] / self.game_ref.solar_power[0]) == True:
-            self.game_ref.water -= self.game_ref.solar_power_cost[0] / self.game_ref.solar_power[0]
-            self.game_ref.mineral -= self.game_ref.solar_power_cost[1] / self.game_ref.solar_power[0]
+        if self.game_ref.check_thune(self.game_ref.solar_power_c[0] - self.game_ref.solar_power[0],
+        self.game_ref.solar_power_c[0] - self.game_ref.solar_power[0]) == True:
+            self.game_ref.water -= self.game_ref.solar_power_c[0] - self.game_ref.solar_power[0]
             self.game_ref.remove_object_by_id(1, self.object_id)
             self.game_ref.nb_ant -= 1
             self.game_ref.add_object(Effect(["../assets/explo/" + str(x) + ".png" for x in range(0, 5)],
