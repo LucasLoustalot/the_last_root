@@ -135,8 +135,8 @@ class Game():
         self.players = []
         self.clearing = False
 
-        self.mineral = 80
-        self.water = 160
+        self.mineral = 3
+        self.water = 8
         self.m_income = 0.05
         self.w_income = 0.1
         self.damage = 2
@@ -163,7 +163,7 @@ class Game():
         self.pic_cost = (8, 3)
         self.sticky_root_cost = (10, 30)
         self.surface_root_cost = (5, 2)
-        self.solar_power_cost = (4, 4)
+        self.solar_power_cost = (2, 0)
 
     def add_player(self, player: Game_Object) -> int:
         """Add a player and return a player id"""
