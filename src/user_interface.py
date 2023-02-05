@@ -103,7 +103,6 @@ def button_upgrade_laser(game: Game, upgrade: Upgrade_Button):
 
 
 def button_upgrade_floor(game: Game, upgrade: Upgrade_Button):
-
     print("upgrade floor")
     if (game.check_thune(game.surface_root_cost[0], game.surface_root_cost[1]) == True) and (
             game.surface_root_size[0] < game.surface_root_size[1] - 1):
