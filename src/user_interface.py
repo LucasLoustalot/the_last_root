@@ -36,7 +36,7 @@ class Upgrade_Button(Game_Object):
         self.callback = callback_function
         self.font = pygame.font.Font("../assets/Minecraft.ttf", 20)
         if type == 0:
-            self.damage = "N/A"
+            self.damage = "+ 30"
             self.upgrade_level = 0
             self.prix_water = self.game_ref.pic_cost[0]
             self.prix_min = self.game_ref.pic_cost[1]
