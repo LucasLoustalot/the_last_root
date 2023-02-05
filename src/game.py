@@ -131,8 +131,8 @@ class Game():
         self.players = []
         self.clearing = False
 
-        self.mineral = 300
-        self.water = 600
+        self.mineral = 8
+        self.water = 16
         self.m_income = 0.05
         self.w_income = 0.1
         # sprites
