@@ -7,6 +7,7 @@
 
 import pygame
 import random
+from sys import exit
 
 
 class Game_Object(pygame.sprite.Sprite):
