@@ -86,6 +86,7 @@ def damage(ant: Ant, fps: float):
     if (ant.game_ref.health <= 0):
         ant.game_ref.clear_objects()
         ant.game_ref.nb_ant -= 1
+        print("dead")
 
 def ant(game: Game, pos: tuple):
     global clock_time, delay, nb_spawn
@@ -95,7 +96,6 @@ def ant(game: Game, pos: tuple):
         game.wave += 1
         clock_time = 0
         nb_spawn = 0
-        dealy = 0
     if nb_spawn != int(game.nb):
         clock_time += game.clock.tick(60)
     if clock_time >= delay :
