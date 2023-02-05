@@ -136,6 +136,7 @@ class Game():
         self.water = 160
         self.m_income = 0.05
         self.w_income = 0.1
+        self.damage = 1
         # sprites
         self.root_pos = [(590, 625), (440, 625), (290, 625),
                          (-182, 625), (-187, 625),(-187, 625)]
@@ -291,10 +292,10 @@ class Game():
         """ self.window.blit(
             self.gnd_root_sp[self.ground_root_size[0]], self.root_pos[self.ground_root_size[0]]) """
         self.window.blit(
+            self.gnd_root_sp[self.ground_root_size[0]], self.gnd_root_pos[self.ground_root_size[0] - 1])
+        self.window.blit(
             self.surface_root_sp[self.surface_root_size[0]], self.root_pos[self.surface_root_size[0] - 1])
         # self.window.blit(self.sticky_roots_sp[self.sticky_roots[0] - 1],self.root_pos[self.sticky_roots[0] - 1])
-        self.window.blit(
-            self.gnd_root_sp[self.ground_root_size[0]], self.gnd_root_pos[self.ground_root_size[0] - 1])
         return
 
     def update(self):

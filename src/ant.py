@@ -24,7 +24,7 @@ class Ant(Game_Object):
         super().__init__(location=location, rotation=0,
                          scale=scale, game_ref=game_ref)
         self.flip = True if rotation < 120 else False
-        self.health = 100
+        self.health = 10
         self.damage = 3
         self.hit = 0
         self.sprite = Animation(self.location, self.rotation,
