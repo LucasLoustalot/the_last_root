@@ -125,6 +125,7 @@ class Game():
         self.window_res = window_res
         self.fps = fps
         self.health = 100
+        self.max_health = 100
         self.font = pygame.font.SysFont(pygame.font.get_default_font(), 26)
         self.window = pygame.display.set_mode(
             (self.window_res[0], self.window_res[1]))
@@ -137,30 +138,33 @@ class Game():
 
         self.mineral = 4
         self.water = 10
-        self.m_income = 0.05
-        self.w_income = 0.1
+        self.m_income = 0.1
+        self.w_income = 0.2
         self.damage = 2
         # sprites
         self.root_pos = [(590, 625), (440, 625), (290, 625),
                          (-182, 625), (-187, 625), (-187, 625)]
         self.gnd_root_pos = [(42, 660), (42, 660), (42, 660),
                              (42, 660), (-84, 660)]
+        self.pick_pos = [(948, 475), (948, 475), (948, 475),
+                             (948, 475), (948, 475)]
         self.surface_root_sp = [pygame.image.load(
             "../assets/new_roots/racine_" + str(x + 1) + "_sans_acide.png") for x in range(0, 5)]
         self.gnd_root_sp = [pygame.image.load(
             "../assets/racine_under/racine_ss" + str(x + 1) + ".png") for x in range(0, 6)]
         self.sticky_roots_sp = [pygame.image.load(
             "../assets/new_roots/acide_racine_" + str(x + 1) + ".png") for x in range(0, 5)]
-
+        self.pick_sp = [pygame.image.load(
+            "../assets/pick_lvl/pic" + str(x + 1) + ".png") for x in range(0, 4)]
         # (current/max)
         self.ground_root_size = (1, 6)
         self.surface_root_size = (1, 5)
         self.sticky_roots = (1, 8)
-        self.solar_power = (1, 3)
-        self.pic_upgrade = (1, 3)
+        self.solar_power = (0, 3)
+        self.pic_upgrade = (0, 4)
         # eau,minéraux
         self.g_root_size_cost = (4, 3)
-        self.pic_cost = (8, 3)
+        self.pic_cost = (2, 3)
         self.sticky_root_cost = (10, 30)
         self.surface_root_cost = (5, 2)
         self.solar_power_cost = (5, 3)
@@ -190,8 +194,8 @@ class Game():
         mt = mult[self.ground_root_size[0] - 1]
         self.ground_root_size = (
             self.ground_root_size[0] + 1, self.ground_root_size[1])
-        self.w_income += 0.05
-        self.m_income += 0.025
+        self.w_income += 0.075
+        self.m_income += 0.05
         self.decrase_thune(self.g_root_size_cost[0], self.g_root_size_cost[1])
         self.g_root_size_cost = (
             self.g_root_size_cost[0] + mt[0], self.g_root_size_cost[1] + mt[1])
@@ -224,10 +228,12 @@ class Game():
             self.solar_power_cost[0] + mt[0], self.solar_power_cost[1] + mt[1])
 
     def upgrade_pic(self):
-        mult = 2
+        mult = 1.5
         self.pic_upgrade = (self.pic_upgrade[0] + 1, self.pic_upgrade[1])
-        self.decrase_thune(self.pic_upgrade[0], self.pic_upgrade[1])
-        self.pic_cost = (self.pic_cost[0] * mult, self.pic_cost[1] * mult)
+        self.decrase_thune(self.pic_cost[0], self.pic_cost[1])
+        self.max_health += 30
+        self.health = self.max_health
+        self.pic_cost = (int(self.pic_cost[0] * mult), int(self.pic_cost[1] * mult))
 
     def refresh_upgrades(self):
         srf_root_path = "../assets/racine_surface/racine"
@@ -300,6 +306,8 @@ class Game():
             self.gnd_root_sp[self.ground_root_size[0]], self.gnd_root_pos[self.ground_root_size[0] - 1])
         self.window.blit(
             self.surface_root_sp[self.surface_root_size[0]], self.root_pos[self.surface_root_size[0] - 1])
+        self.window.blit(
+            self.pick_sp[self.pic_upgrade[0]], self.pick_pos[self.pic_upgrade[0] - 1])
         # self.window.blit(self.sticky_roots_sp[self.sticky_roots[0] - 1],self.root_pos[self.sticky_roots[0] - 1])
         return
 
