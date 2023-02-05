@@ -81,12 +81,9 @@ class Upgrade_Button(Game_Object):
         self.collide_rect = self.sprite.get_rect(self.location, self.rotation)
         frame = self.sprite.get_frame(delta_time)
         self.game_ref.window.blit(frame, self.location)
-        self.game_ref.window.blit(
-            self.textlvl, (self.location[0] + 35, self.location[1] + 100))
-        self.game_ref.window.blit(
-            self.textwater, (self.location[0] + 83, self.location[1] + 90))
-        self.game_ref.window.blit(
-            self.textmin, (self.location[0] + 83, self.location[1] + 115))
+        self.game_ref.window.blit(self.textlvl, (self.location[0] + 35, self.location[1] + 100))
+        self.game_ref.window.blit(self.textwater, (self.location[0] + 83, self.location[1] + 115))
+        self.game_ref.window.blit(self.textmin, (self.location[0] + 83, self.location[1] + 90))
         if self.damage != None:
             self.game_ref.window.blit(
                 self.textdmg, (self.location[0]+ 50, self.location[1]+ 178))
