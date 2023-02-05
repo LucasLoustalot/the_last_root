@@ -7,6 +7,7 @@
 
 from game import *
 from player import *
+from user_interface import Effect
 import pygame
 import random
 import math
@@ -64,6 +65,8 @@ class Ant(Game_Object):
             self.game_ref.mineral -= 4 / self.game_ref.solar_power[0]
             self.game_ref.remove_object_by_id(1, self.object_id)
             self.game_ref.nb_ant -= 1
+            self.game_ref.add_object(Effect(["../assets/explo/" + str(x) + ".png" for x in range(0, 5)],
+            self.location,0,(self.scale[0] * 1.2, self.scale[1] * 1.2),self.game_ref),0)
         return
 
     def receive_damage(self, damage: int):
