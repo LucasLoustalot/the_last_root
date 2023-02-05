@@ -24,8 +24,8 @@ class Ant(Game_Object):
         super().__init__(location=location, rotation=0,
                          scale=scale, game_ref=game_ref)
         self.flip = True if rotation < 120 else False
-        self.health = 10
-        self.damage = 3
+        self.health = 10 + 0.1 * game_ref.wave + (random.randint(0,4) / 4)
+        self.damage = 3 + random.randint(0,2) + 0.2 * game_ref.wave
         self.hit = 0
         self.sprite = Animation(self.location, self.rotation,
                                 self.scale, texturespath, 0.1)
@@ -58,6 +58,12 @@ class Ant(Game_Object):
             self.game_ref.nb_ant -= 1
         return
 
+    def receive_damage(self, damage: int):
+        self.health = self.health - damage
+        if self.health <= 0 :
+            self.game_ref.remove_object_by_id(self.layer, self.object_id)
+            self.game_ref.nb_ant = self.game_ref.nb_ant - 1
+
 def check_ant(ant: Ant):
     if int(ant.health) == 0:
         ant.game_ref.remove_object_by_id(1, ant.object_id)
@@ -65,7 +71,7 @@ def check_ant(ant: Ant):
 
 def damage(ant: Ant, fps: float):
     if (ant.hit == 1 and ant.game_ref.health > 0):
-        ant.game_ref.health -= 3 / fps
+        ant.game_ref.health -= ant.damage / fps
     if (ant.game_ref.health <= 0):
         ant.game_ref.clear_objects()
 

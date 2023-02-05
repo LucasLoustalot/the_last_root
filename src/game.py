@@ -34,6 +34,9 @@ class Game_Object(pygame.sprite.Sprite):
     def event_destroyed(self):
         """Called When the object is destroyed"""
         return
+    
+    def receive_damage(self, damage: int):
+        return
 
 
 class Animation(pygame.sprite.Sprite):
@@ -136,10 +139,10 @@ class Game():
         self.water = 160
         self.m_income = 0.05
         self.w_income = 0.1
-        self.damage = 1
+        self.damage = 2
         # sprites
         self.root_pos = [(590, 625), (440, 625), (290, 625),
-                         (-182, 625), (-187, 625),(-187, 625)]
+                         (-182, 625), (-187, 625), (-187, 625)]
         self.gnd_root_pos = [(42, 660), (42, 660), (42, 660),
                              (42, 660), (-84, 660)]
         self.surface_root_sp = [pygame.image.load(
@@ -298,6 +301,17 @@ class Game():
         # self.window.blit(self.sticky_roots_sp[self.sticky_roots[0] - 1],self.root_pos[self.sticky_roots[0] - 1])
         return
 
+    def do_ant_damage(self, fps: float):
+        for layer, layer_obj in self.objects.items():
+            for key in layer_obj:
+                if layer_obj[key] == None or layer_obj[key].collide_rect == None:
+                    continue
+                rct = self.surface_root_sp[self.surface_root_size[0]].get_rect(
+                    topleft=self.root_pos[self.ground_root_size[0] - 1])
+                if layer_obj[key].collide_rect.colliderect(rct):
+                    layer_obj[key].receive_damage(self.damage / fps)
+
+
     def update(self):
         """Update the window and the game by refreshing every game object added"""
         self.__update_event()
@@ -305,6 +319,7 @@ class Game():
         self.window.blit(self._background, (0, 0))
         tick = self.clock.tick(60)
         fps = 1000.0 / tick
+        self.do_ant_damage(fps)
         self.passive_income(fps)
         # print("Eau : " + str(self.water) + " Minerais : " + str(self.mineral))
         for layer, layer_obj in self.objects.items():
