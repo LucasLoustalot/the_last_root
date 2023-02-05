@@ -27,6 +27,14 @@ class Ant(Game_Object):
         self.health = 10 + 0.1 * game_ref.wave + (random.randint(0,4) / 4)
         self.damage = 3 + random.randint(0,2) + 0.2 * game_ref.wave
         self.hit = 0
+        self.is_boss = False
+        self.boss_rd = random.randint(0,25)
+        if self.boss_rd == 25:
+            self.is_boss = True
+            self.health *= 2
+            self.damage *= 1.5
+            self.scale = (self.scale[0] + 20, self.scale[1] + 20)
+            self.location = (self.location[0], self.location[1] - 20)
         self.sprite = Animation(self.location, self.rotation,
                                 self.scale, texturespath, 0.1)
         self.sprite.play(loop=False)
