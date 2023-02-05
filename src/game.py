@@ -6,7 +6,7 @@
 ##
 
 import pygame
-
+import random
 
 class Game_Object(pygame.sprite.Sprite):
     """Master game object, parent of all other object classes.
@@ -229,7 +229,7 @@ class Game():
         obj.layer = layer
         if str(layer) not in self.objects:
             self.objects[str(layer)] = {}
-        obj.object_id = len(self.objects[str(layer)])
+        obj.object_id = len(self.objects[str(layer)]) + random.randint(0, 999999)
         self.objects[str(layer)][str(obj.object_id)] = obj
         return (obj.object_id)
 

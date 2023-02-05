@@ -51,7 +51,7 @@ class Ant(Game_Object):
         damage(self, fps)
 
     def event_clicked(self, hit_pos: tuple):
-        self.game_ref.remove_object_by_id(1, self.object_id)
+        self.game_ref.remove_object_by_id(self.layer, self.object_id)
         self.game_ref.nb_ant -= 1
         return
 
