@@ -7,7 +7,7 @@
 
 import pygame
 import random
-
+from sys import exit
 
 class Game_Object(pygame.sprite.Sprite):
     """Master game object, parent of all other object classes.
@@ -185,14 +185,15 @@ class Game():
         self.mineral = self.mineral - mineral
 
     def upgrade_gnd_root(self):
-        mult = 2
+        mult = [(1, 1), (2, 1), (1, 0), (1, 0), (1, 0), (2, 1), (2, 1)]
+        mt = mult[self.ground_root_size[0] - 1]
         self.ground_root_size = (
             self.ground_root_size[0] + 1, self.ground_root_size[1])
         self.w_income += 0.05
         self.m_income += 0.025
         self.decrase_thune(self.g_root_size_cost[0], self.g_root_size_cost[1])
         self.g_root_size_cost = (
-            self.g_root_size_cost[0] * mult, self.g_root_size_cost[1] * mult)
+            self.g_root_size_cost[0] + mt[0], self.g_root_size_cost[1] + mt[1])
 
     def upgrade_sticky_root(self):
         mult = 2
@@ -203,15 +204,15 @@ class Game():
             self.sticky_root_cost[0] * mult, self.sticky_root_cost[1] * mult)
 
     def upgrade_surface_root(self):
-        mult = [(-1, -1), (2, 1), (1, 0), (1, 0), (1, 0), (2, 1), (2, 1)]
+        mult = [(1, 1), (2, 1), (1, 0), (1, 0), (1, 0), (2, 1), (2, 1)]
 
         mt = mult[self.surface_root_size[0] - 1]
         self.surface_root_size = (
             self.surface_root_size[0] + 1, self.surface_root_size[1])
         self.decrase_thune(
-            self.surface_root_size[0], self.surface_root_size[1])
+            self.surface_root_cost[0], self.surface_root_cost[1])
         self.surface_root_cost = (
-            self.surface_root_size[0] + mt[0], self.surface_root_size[1] + mt[1])
+            self.surface_root_cost[0] + mt[0], self.surface_root_cost[1] + mt[1])
 
     def upgrade_solar(self):
         mult = [(1, 1), (2, 1), (2, 2), (3, 4)]
