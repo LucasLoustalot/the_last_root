@@ -18,5 +18,5 @@ class Wave_Count(Game_Object):
 
     def event_tick(self, delta_time: float, fps: float):
         self.vague = "Wave : " + str(int(self.game_ref.wave))
-        self.vaguetxt = self.font.render(self.vague, True, (0, 154, 23))
+        self.vaguetxt = self.font.render(self.vague, True, (255, 255, 255))
         self.game_ref.window.blit(self.vaguetxt, (self.location))
