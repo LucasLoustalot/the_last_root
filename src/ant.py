@@ -62,7 +62,7 @@ class Ant(Game_Object):
         self.health = self.health - damage
         if self.health <= 0 :
             self.game_ref.remove_object_by_id(self.layer, self.object_id)
-            self.game_ref.nb_ant = self.game_ref.nb_ant - 1
+            self.game_ref.nb_ant -= 1
 
 def check_ant(ant: Ant):
     if int(ant.health) == 0:
@@ -74,6 +74,7 @@ def damage(ant: Ant, fps: float):
         ant.game_ref.health -= ant.damage / fps
     if (ant.game_ref.health <= 0):
         ant.game_ref.clear_objects()
+        ant.game_ref.nb_ant -= 1
 
 def ant(game: Game, pos: tuple):
     global clock_time, delay, nb_spawn
