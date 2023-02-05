@@ -33,8 +33,8 @@ class Upgrade_Button(Game_Object):
             self.prix_min = self.game_ref.g_root_size_cost[1]
         if type == 3:
             self.upgrade_level = 1
-            self.prix_water = self.game_ref.pic_cost[0]
-            self.prix_min = self.game_ref.pic_cost[1]
+            self.prix_water = self.game_ref.solar_power_cost[0]
+            self.prix_min = self.game_ref.solar_power_cost[1]
         self.text_lvl = str(self.upgrade_level)
         self.text_water = str(self.prix_water)
         self.text_min = str(self.prix_min)

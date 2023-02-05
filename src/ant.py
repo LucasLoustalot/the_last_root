@@ -51,9 +51,20 @@ class Ant(Game_Object):
         damage(self, fps)
 
     def event_clicked(self, hit_pos: tuple):
+        print(self.game_ref.solar_power[0])
+        self.game_ref.water -= 8 / self.game_ref.solar_power[0]
+        self.game_ref.mineral -= 4 / self.game_ref.solar_power[0]
         self.game_ref.remove_object_by_id(1, self.object_id)
+        self.health -= 50
+        #check_ant(self)
         self.game_ref.nb_ant -= 1
         return
+
+def check_ant(ant: Ant):
+    if int(ant.health) == 0:
+        ant.game_ref.remove_object_by_id(1, ant.object_id)
+        ant.game_ref.nb_ant -= 1
+
 
 def damage(ant: Ant, fps: float):
     if (ant.hit == 1 and ant.game_ref.health > 0):
