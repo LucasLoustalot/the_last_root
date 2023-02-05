@@ -199,13 +199,19 @@ class Game():
         mult = [(-1, -1), (2, 1), (1, 0), (1, 0), (1, 0), (2, 1), (2, 1)]
 
         mt = mult[self.surface_root_size[0] - 1]
-        print(mt)
         self.surface_root_size = (
             self.surface_root_size[0] + 1, self.surface_root_size[1])
         self.decrase_thune(
             self.surface_root_size[0], self.surface_root_size[1])
         self.surface_root_cost = (
             self.surface_root_size[0] + mt[0], self.surface_root_size[1] + mt[1])
+
+    def upgrade_solar(self):
+        mult = [(-1, -1), (2, 1), (1, 0), (1, 0), (1, 0), (2, 1), (2, 1)]
+        mt = mult[self.solar_power[0] - 1]
+        self.solar_power = (self.solar_power[0] + 1, self.solar_power[1])
+        self.decrase_thune(self.solar_power_cost[0],self.solar_power_cost[1])
+        self.solar_power_cost = (self.solar_power_cost[0] + mt[0], self.solar_power_cost[1] + mt[1])
 
     def upgrade_pic(self):
         mult = 2
