@@ -137,10 +137,10 @@ class Game():
         self.m_income = 0.05
         self.w_income = 0.1
         # sprites
-        self.root_pos = [(635, 625), (485, 625), (335, 625),
-                         (285, 625), (-187, 625),(-187, 625)]
-        self.gnd_root_pos = [(42, 660), (585, 625), (435, 625),
-                             (285, 625), (-187, 625)]
+        self.root_pos = [(590, 625), (440, 625), (290, 625),
+                         (-182, 625), (-187, 625),(-187, 625)]
+        self.gnd_root_pos = [(42, 660), (42, 660), (42, 660),
+                             (42, 660), (42, 660)]
         self.surface_root_sp = [pygame.image.load(
             "../assets/new_roots/racine_" + str(x + 1) + "_sans_acide.png") for x in range(0, 5)]
         self.gnd_root_sp = [pygame.image.load(
