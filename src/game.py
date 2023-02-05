@@ -8,7 +8,6 @@
 import pygame
 import random
 
-
 class Game_Object(pygame.sprite.Sprite):
     """Master game object, parent of all other object classes.
     - Do not add gameplay specific functions here."""
@@ -33,9 +32,6 @@ class Game_Object(pygame.sprite.Sprite):
 
     def event_destroyed(self):
         """Called When the object is destroyed"""
-        return
-    
-    def receive_damage(self, damage: int):
         return
 
 
@@ -135,35 +131,32 @@ class Game():
         self.players = []
         self.clearing = False
 
-        self.mineral = 80
-        self.water = 160
+        self.mineral = 8
+        self.water = 16
         self.m_income = 0.05
         self.w_income = 0.1
-        self.damage = 2
         # sprites
-        self.root_pos = [(590, 625), (440, 625), (290, 625),
-                         (-182, 625), (-187, 625), (-187, 625)]
-        self.gnd_root_pos = [(42, 660), (42, 660), (42, 660),
-                             (42, 660), (-84, 660)]
+        self.root_pos = [(735, 625), (585, 625), (435, 625),
+                         (285, 625), (-187, 625)]
         self.surface_root_sp = [pygame.image.load(
             "../assets/new_roots/racine_" + str(x + 1) + "_sans_acide.png") for x in range(0, 5)]
         self.gnd_root_sp = [pygame.image.load(
-            "../assets/racine_under/racine_ss" + str(x + 1) + ".png") for x in range(0, 6)]
+            "../assets/new_roots/racine_" + str(x + 1) + "_sans_acide.png") for x in range(0, 5)]
         self.sticky_roots_sp = [pygame.image.load(
-            "../assets/new_roots/acide_racine_" + str(x + 1) + ".png") for x in range(0, 5)]
+            "../assets/new_roots/acide_racine_" + str(x+1) + ".png") for x in range(0, 5)]
 
         # (current/max)
-        self.ground_root_size = (1, 6)
+        self.ground_root_size = (1, 4)
         self.surface_root_size = (1, 5)
         self.sticky_roots = (1, 8)
-        self.solar_power = (1, 4)
-        self.pic_upgrade = (1, 3)
+        self.solar_power = (1,4)
+        self.pic_upgrade = (0, 3)
         # eau,minéraux
-        self.g_root_size_cost = (4, 3)
+        self.g_root_size_cost = (25, 10)
         self.pic_cost = (8, 3)
         self.sticky_root_cost = (10, 30)
         self.surface_root_cost = (5, 2)
-        self.solar_power_cost = (4, 4)
+        self.solar_power_cost = (4,4)
 
     def add_player(self, player: Game_Object) -> int:
         """Add a player and return a player id"""
@@ -171,8 +164,8 @@ class Game():
         return (len(self.players) - 1)
 
     def passive_income(self, fps: float):
-        self.water += self.w_income / (fps / 2)
-        self.mineral += self.m_income / (fps / 2)
+        self.water += self.w_income / fps
+        self.mineral += self.m_income / fps
 
     def check_thune(self, water: int, mineral: int) -> bool:
         if self.water >= water and self.mineral >= mineral:
@@ -203,23 +196,18 @@ class Game():
             self.sticky_root_cost[0] * mult, self.sticky_root_cost[1] * mult)
 
     def upgrade_surface_root(self):
-        mult = [(-1, -1), (2, 1), (1, 0), (1, 0), (1, 0), (2, 1), (2, 1)]
-
+        mult = [(-1, -1), (2, 1), (1, 1), (1, 0), (1, 0), (2, 1), (2, 1)]
         mt = mult[self.surface_root_size[0] - 1]
-        self.surface_root_size = (
-            self.surface_root_size[0] + 1, self.surface_root_size[1])
-        self.decrase_thune(
-            self.surface_root_size[0], self.surface_root_size[1])
-        self.surface_root_cost = (
-            self.surface_root_size[0] + mt[0], self.surface_root_size[1] + mt[1])
+        self.surface_root_size = (self.surface_root_size[0] + 1, self.surface_root_size[1])
+        self.decrase_thune(self.surface_root_cost[0], self.surface_root_cost[1])
+        self.surface_root_cost = (self.surface_root_size[0] + mt[0], self.surface_root_size[1] + mt[1])
 
     def upgrade_solar(self):
-        mult = [(1, 1), (2, 1), (2, 2), (3, 4)]
+        mult = [(-1, -1), (2, 1), (1, 0), (1, 0), (1, 0), (2, 1), (2, 1)]
         mt = mult[self.solar_power[0] - 1]
         self.solar_power = (self.solar_power[0] + 1, self.solar_power[1])
-        self.decrase_thune(self.solar_power_cost[0], self.solar_power_cost[1])
-        self.solar_power_cost = (
-            self.solar_power_cost[0] + mt[0], self.solar_power_cost[1] + mt[1])
+        self.decrase_thune(self.solar_power_cost[0],self.solar_power_cost[1])
+        self.solar_power_cost = (self.solar_power_cost[0] + mt[0], self.solar_power_cost[1] + mt[1])
 
     def upgrade_pic(self):
         mult = 2
@@ -243,8 +231,7 @@ class Game():
         obj.layer = layer
         if str(layer) not in self.objects:
             self.objects[str(layer)] = {}
-        obj.object_id = len(
-            self.objects[str(layer)]) + random.randint(0, 999999)
+        obj.object_id = len(self.objects[str(layer)]) + random.randint(0, 999999)
         self.objects[str(layer)][str(obj.object_id)] = obj
         return (obj.object_id)
 
@@ -265,7 +252,7 @@ class Game():
     def clear_objects(self):
         for layer, layer_obj in self.objects.items():
             for key in layer_obj:
-                if layer_obj[key] == None:
+                if layer_obj[key] == None :
                     continue
                 layer_obj[key].event_destroyed()
                 layer_obj[key] = None
@@ -295,22 +282,10 @@ class Game():
         """ self.window.blit(
             self.gnd_root_sp[self.ground_root_size[0]], self.root_pos[self.ground_root_size[0]]) """
         self.window.blit(
-            self.gnd_root_sp[self.ground_root_size[0]], self.gnd_root_pos[self.ground_root_size[0] - 1])
-        self.window.blit(
-            self.surface_root_sp[self.surface_root_size[0]], self.root_pos[self.surface_root_size[0] - 1])
-        # self.window.blit(self.sticky_roots_sp[self.sticky_roots[0] - 1],self.root_pos[self.sticky_roots[0] - 1])
+            self.surface_root_sp[self.surface_root_size[0]], self.root_pos[self.surface_root_size[0]])
+        #self.window.blit(self.sticky_roots_sp[self.sticky_roots[0] - 1],self.root_pos[self.sticky_roots[0] - 1])
+        self.window.blit(self.sticky_roots_sp[self.sticky_roots[0] - 1],self.root_pos[self.sticky_roots[0] - 1])
         return
-
-    def do_ant_damage(self, fps: float):
-        for layer, layer_obj in self.objects.items():
-            for key in layer_obj:
-                if layer_obj[key] == None or layer_obj[key].collide_rect == None:
-                    continue
-                rct = self.surface_root_sp[self.surface_root_size[0]].get_rect(
-                    topleft=self.root_pos[self.ground_root_size[0] - 1])
-                if layer_obj[key].collide_rect.colliderect(rct):
-                    layer_obj[key].receive_damage(self.damage / fps)
-
 
     def update(self):
         """Update the window and the game by refreshing every game object added"""
@@ -319,11 +294,11 @@ class Game():
         self.window.blit(self._background, (0, 0))
         tick = self.clock.tick(60)
         fps = 1000.0 / tick
-        self.do_ant_damage(fps)
         self.passive_income(fps)
+        # print("Eau : " + str(self.water) + " Minerais : " + str(self.mineral))
         for layer, layer_obj in self.objects.items():
             for key in layer_obj:
-                if layer_obj[key] == None:
+                if layer_obj[key] == None :
                     continue
                 layer_obj[key].event_tick(tick / 1000, fps)
                 if self.clearing == True:
