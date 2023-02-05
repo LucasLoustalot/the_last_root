@@ -135,8 +135,8 @@ class Game():
         self.players = []
         self.clearing = False
 
-        self.mineral = 3
-        self.water = 8
+        self.mineral = 4
+        self.water = 10
         self.m_income = 0.05
         self.w_income = 0.1
         self.damage = 2
