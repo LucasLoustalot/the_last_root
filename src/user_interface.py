@@ -72,11 +72,12 @@ class Upgrade_Button(Game_Object):
 
 
 def button_upgrade_laser(game: Game, upgrade: Upgrade_Button):
-    if game.check_thune(game.g_root_size_cost[0], game.g_root_size_cost[1] - 1) == True:
-        
+    if game.check_thune(game.solar_power_cost[0], game.solar_power_cost[1] - 1) == True and (
+            game.solar_power[0] < game.solar_power[1] - 1):
+        game.upgrade_solar()
+        upgrade.prix_water = game.solar_power_cost[0]
+        upgrade.prix_min = game.solar_power_cost[1]
         upgrade.upgrade_level += 1
-        """ upgrade.prix_water = game.surface_root_cost[0]
-        upgrade.prix_min = game.surface_root_cost[1] """
     else:
         print("Upgrade not available")
 
@@ -90,9 +91,8 @@ def button_upgrade_floor(game: Game, upgrade: Upgrade_Button):
         upgrade.prix_water = game.surface_root_cost[0]
         upgrade.prix_min = game.surface_root_cost[1]
         upgrade.upgrade_level += 1
-        print("level : " + str(game.surface_root_size[0]))
     else:
-        print("Upgrade floor not available")
+        print("Upgrade not available")
 
 
 def button_upgrade_pic(game: Game, upgrade: Upgrade_Button):
