@@ -8,6 +8,18 @@
 from game import *
 import pygame
 
+class Effect(Game_Object):
+    def __init__(self, texturespath: list, location: tuple,
+                 rotation: int, scale: tuple, game_ref: Game):
+        super().__init__(location=location, rotation=0,
+                         scale=scale, game_ref=game_ref)
+        self.sprite = Animation(self.location, self.rotation,
+                                self.scale, texturespath, 0.1)
+        self.sprite.play(loop=False)
+
+    def event_tick(self, delta_time: float, fps: float):
+        if self.sprite.is_playing == False:
+            self.game_ref.remove_object_by_id(self.layer, self.object_id)
 
 class Upgrade_Button(Game_Object):
     def __init__(self, texturepath: list, location: tuple,
