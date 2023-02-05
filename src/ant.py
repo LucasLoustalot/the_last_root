@@ -101,7 +101,7 @@ def ant(game: Game, pos: tuple):
     if clock_time >= delay :
         random1 = random.choice([-50, 1900])
         nb_spawn += 10
-        game.add_object(Ant(["../assets/ant.png"], (random1, 600),
+        game.add_object(Ant(["../assets/cafard.png"], (random1, 600),
             angle_player(pos, (random1, 600)), (70, 70), game, pos), 1)
         delay = random.randint(300, 900)
         clock_time = 0
