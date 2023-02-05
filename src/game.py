@@ -129,6 +129,7 @@ class Game():
             self._background_texture, self.window_res)
         self.objects = {}
         self.players = []
+        self.clearing = False
 
         self.mineral = 300
         self.water = 600
@@ -247,14 +248,14 @@ class Game():
                     return
 
     def clear_objects(self):
-            for layer, layer_obj in self.objects.items():
-                for key in layer_obj:
-                    if layer_obj[key] == None :
-                        continue
-                    layer_obj[key].event_destroyed()
-                    layer_obj[key] = None
-            self.__garbage_collector()
-            self.objects.clear()
+        for layer, layer_obj in self.objects.items():
+            for key in layer_obj:
+                if layer_obj[key] == None :
+                    continue
+                layer_obj[key].event_destroyed()
+                layer_obj[key] = None
+        self.objects.clear()
+        self.clearing = True
 
     def __update_event(self):
         """Private Method
@@ -295,7 +296,12 @@ class Game():
         # print("Eau : " + str(self.water) + " Minerais : " + str(self.mineral))
         for layer, layer_obj in self.objects.items():
             for key in layer_obj:
+                if layer_obj[key] == None :
+                    continue
                 layer_obj[key].event_tick(tick / 1000, fps)
+                if self.clearing == True:
+                    self.clearing = False
+                    return
         self.draw_upgrades()
         pygame.display.flip()
         return
