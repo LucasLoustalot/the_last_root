@@ -129,12 +129,13 @@ class Game():
         self.objects = {}
         self.players = []
 
-        self.mineral = 3
-        self.water = 6
+        self.mineral = 30
+        self.water = 60
         self.m_income = 0.05
         self.w_income = 0.1
         # sprites
-        self.root_pos = [(735,625),(585,625),(435,625),(285,625),(40,625),(0,625)]
+        self.root_pos = [(735, 625), (585, 625), (435, 625),
+                         (285, 625), (-187, 625)]
         self.gnd_root_sp = [pygame.image.load(
             "../assets/new_roots/racine_" + str(x + 1) + "_sans_acide.png") for x in range(0, 5)]
         self.sticky_roots_sp = [pygame.image.load(
@@ -174,21 +175,27 @@ class Game():
 
     def upgrade_gnd_root(self):
         mult = 2
-        self.ground_root_size = (self.ground_root_size[0] + 1, self.ground_root_size[1])
+        self.ground_root_size = (
+            self.ground_root_size[0] + 1, self.ground_root_size[1])
         self.decrase_thune(self.g_root_size_cost[0], self.g_root_size_cost[1])
-        self.g_root_size_cost = (self.g_root_size_cost[0] * mult, self.g_root_size_cost[1] * mult)
+        self.g_root_size_cost = (
+            self.g_root_size_cost[0] * mult, self.g_root_size_cost[1] * mult)
 
     def upgrade_sticky_root(self):
         mult = 2
-        self.sticky_roots = (self.g_root_size_cost[0] + 1, self.g_root_size_cost[1]) 
+        self.sticky_roots = (
+            self.g_root_size_cost[0] + 1, self.g_root_size_cost[1])
         self.decrase_thune(self.g_root_size_cost[0], self.g_root_size_cost[1])
-        self.sticky_root_cost = (self.sticky_root_cost[0] * mult, self.sticky_root_cost[1] * mult)
+        self.sticky_root_cost = (
+            self.sticky_root_cost[0] * mult, self.sticky_root_cost[1] * mult)
 
     def upgrade_surface_root(self):
         mult = 2
-        self.surface_root_size = (self.g_root_size_cost[0] + 1, self.g_root_size_cost[1])
+        self.surface_root_size = (
+            self.g_root_size_cost[0] + 1, self.g_root_size_cost[1])
         self.decrase_thune(self.g_root_size_cost[0], self.g_root_size_cost[1])
-        self.surface_root_cost = (self.surface_root_cost[0] * mult, self.surface_root_cost[1] * mult)
+        self.surface_root_cost = (
+            self.surface_root_cost[0] * mult, self.surface_root_cost[1] * mult)
 
     def upgrade_pic(self):
         mult = 2
@@ -240,24 +247,26 @@ class Game():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 for layer, layer_obj in self.objects.items():
                     for key in layer_obj:
+                        if layer_obj[key] == None or layer_obj[key].collide_rect == None:
+                            continue
                         if layer_obj[key].collide_rect.collidepoint(event.pos):
                             layer_obj[key].event_clicked(event.pos)
-                            return
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     exit()
 
     def draw_upgrades(self):
-        self.window.blit(self.gnd_root_sp[self.ground_root_size[0]],self.root_pos[self.ground_root_size[0]])
-        #self.window.blit(self.sticky_roots_sp[self.sticky_roots[0] - 1],self.root_pos[self.ground_root_size[0] - 1])
+        self.window.blit(
+            self.gnd_root_sp[self.ground_root_size[0]], self.root_pos[self.ground_root_size[0]])
+        # self.window.blit(self.sticky_roots_sp[self.sticky_roots[0] - 1],self.root_pos[self.ground_root_size[0] - 1])
         return
 
     def update(self):
         """Update the window and the game by refreshing every game object added"""
         self.__update_event()
-        self.window.blit(self._background, (0, 0))
         self.__garbage_collector()
+        self.window.blit(self._background, (0, 0))
         tick = self.clock.tick(60)
         fps = 1000.0 / tick
         self.passive_income(fps)
@@ -265,6 +274,6 @@ class Game():
         for layer, layer_obj in self.objects.items():
             for key in layer_obj:
                 layer_obj[key].event_tick(tick / 1000, fps)
-        self.draw_upgrades() #993 660
+        self.draw_upgrades()
         pygame.display.flip()
         return

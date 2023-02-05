@@ -14,8 +14,11 @@ from ressource_item import *
 CONST_POS = (768, 275)
 
 def main():
+    [pygame.image.load(
+            "../assets/new_roots/racine_" + str(x + 1) + "_sans_acide.png") for x in range(0, 5)]
+
     pgm = Game((1920,1080),60,"The Last Root","../assets/BG.png")
-    pgm.add_object(Player(["../assets/flower/flower_pxl.png"],CONST_POS,0,(400,400),pgm),0)
+    pgm.add_object(Player(["../assets/animation_plante/f" + str(x) + ".png" for x in range(1,12)],CONST_POS,0,(400,400),pgm),0)
     pgm.add_object(Upgrade_Button(["../assets/broot.png"],(1750,20),0,(150,150),pgm,button_upgrade_laser, 3), 2)
     pgm.add_object(Upgrade_Button(["../assets/broot.png"],(1580,20),0,(150,150),pgm,button_upgrade_floor, 1), 2)
     pgm.add_object(Upgrade_Button(["../assets/broot.png"],(1410,20),0,(150,150),pgm,button_upgrade_pic, 0), 2)
