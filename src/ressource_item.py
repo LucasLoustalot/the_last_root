@@ -43,4 +43,4 @@ class Ressource_Button(Game_Object):
             self.game_ref.window.blit(self.textgainw, (self.location[0] + 160, self.location[1] + 30))
         if self.textmin != None:
             self.game_ref.window.blit(self.textmin, (self.location[0] + 95, self.location[1] + 20))
-            self.game_ref.window.blit(self.textgainm, (self.location[0] + 155, self.location[1] + 30))
+            self.game_ref.window.blit(self.textgainm, (self.location[0] + 170, self.location[1] + 30))

@@ -21,7 +21,7 @@ def main():
 
     pgm = Game((1920,1080),60,"The Last Root","../assets/BG.png")
     pgm.add_object(Player(["../assets/animation_plante/f" + str(x) + ".png" for x in range(1,12)],CONST_POS,0,(400,400),pgm),0)
-    pgm.add_object(Upgrade_Button(["../assets/bouton/panno_rayonl.png"],(1750,20),0,(150,206),pgm,button_upgrade_laser, 3), 2)
+    pgm.add_object(Upgrade_Button(["../assets/bout_canon.png"],(1750,20),0,(150,206),pgm,button_upgrade_laser, 3), 2)
     pgm.add_object(Upgrade_Button(["../assets/bouton_racine.png"],(1580,20),0,(150,206),pgm,button_upgrade_floor, 1), 2)
     pgm.add_object(Upgrade_Button(["../assets/bouton/bouton_pic.png"],(1410,20),0,(150,206),pgm,button_upgrade_pic, 0), 2)
     pgm.add_object(Upgrade_Button(["../assets/bouton/rs_panneau.png"],(1240,20),0,(150,206),pgm,button_upgrade_root, 2), 2)

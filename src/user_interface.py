@@ -51,7 +51,7 @@ class Upgrade_Button(Game_Object):
             self.prix_water = self.game_ref.g_root_size_cost[0]
             self.prix_min = self.game_ref.g_root_size_cost[1]
         if type == 3:
-            self.damage = "1000"
+            self.damage = str(self.game_ref.solar_power_c[0])
             self.upgrade_level = 1
             self.prix_water = self.game_ref.solar_power_cost[0]
             self.prix_min = self.game_ref.solar_power_cost[1]
