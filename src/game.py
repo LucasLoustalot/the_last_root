@@ -171,8 +171,8 @@ class Game():
         return (len(self.players) - 1)
 
     def passive_income(self, fps: float):
-        self.water += self.w_income / fps
-        self.mineral += self.m_income / fps
+        self.water += self.w_income / (fps / 2)
+        self.mineral += self.m_income / (fps / 2)
 
     def check_thune(self, water: int, mineral: int) -> bool:
         if self.water >= water and self.mineral >= mineral:
@@ -321,7 +321,6 @@ class Game():
         fps = 1000.0 / tick
         self.do_ant_damage(fps)
         self.passive_income(fps)
-        # print("Eau : " + str(self.water) + " Minerais : " + str(self.mineral))
         for layer, layer_obj in self.objects.items():
             for key in layer_obj:
                 if layer_obj[key] == None:
