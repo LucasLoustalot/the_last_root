@@ -136,21 +136,25 @@ class Game():
         # sprites
         self.root_pos = [(735, 625), (585, 625), (435, 625),
                          (285, 625), (-187, 625)]
+        self.surface_root_sp = [pygame.image.load(
+            "../assets/new_roots/racine_" + str(x + 1) + "_sans_acide.png") for x in range(0, 5)]
         self.gnd_root_sp = [pygame.image.load(
             "../assets/new_roots/racine_" + str(x + 1) + "_sans_acide.png") for x in range(0, 5)]
         self.sticky_roots_sp = [pygame.image.load(
             "../assets/new_roots/acide_racine_" + str(x+1) + ".png") for x in range(0, 5)]
 
         # (current/max)
-        self.ground_root_size = (0, 4)
+        self.ground_root_size = (1, 4)
         self.surface_root_size = (1, 5)
         self.sticky_roots = (1, 8)
+        self.solar_power = (1,4)
         self.pic_upgrade = (1, 3)
         # eau,minéraux
         self.g_root_size_cost = (25, 10)
         self.pic_cost = (8, 3)
         self.sticky_root_cost = (10, 30)
         self.surface_root_cost = (5, 2)
+        self.solar_power_cost = (4,4)
 
     def add_player(self, player: Game_Object) -> int:
         """Add a player and return a player id"""
@@ -261,9 +265,12 @@ class Game():
                     exit()
 
     def draw_upgrades(self):
+        """ self.window.blit(
+            self.gnd_root_sp[self.ground_root_size[0]], self.root_pos[self.ground_root_size[0]]) """
         self.window.blit(
-            self.gnd_root_sp[self.ground_root_size[0]], self.root_pos[self.ground_root_size[0]])
-        # self.window.blit(self.sticky_roots_sp[self.sticky_roots[0] - 1],self.root_pos[self.ground_root_size[0] - 1])
+            self.surface_root_sp[self.surface_root_size[0]], self.root_pos[self.surface_root_size[0]])
+        #self.window.blit(self.sticky_roots_sp[self.sticky_roots[0] - 1],self.root_pos[self.sticky_roots[0] - 1])
+        self.window.blit(self.sticky_roots_sp[self.sticky_roots[0] - 1],self.root_pos[self.sticky_roots[0] - 1])
         return
 
     def update(self):
