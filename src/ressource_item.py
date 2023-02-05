@@ -32,6 +32,6 @@ class Ressource_Button(Game_Object):
             self.textmin = self.font.render(self.min, True, (255, 255, 255))
             self.textwater = None
         if self.textwater != None:
-            self.game_ref.window.blit(self.textwater, (self.location[0] + 90, self.location[1] + 20))
+            self.game_ref.window.blit(self.textwater, (self.location[0] + 95, self.location[1] + 20))
         if self.textmin != None:
-            self.game_ref.window.blit(self.textmin, (self.location[0] + 90, self.location[1] + 20))
+            self.game_ref.window.blit(self.textmin, (self.location[0] + 95, self.location[1] + 20))

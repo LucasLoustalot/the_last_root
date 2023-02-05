@@ -25,6 +25,8 @@ class Ant(Game_Object):
                          scale=scale, game_ref=game_ref)
         self.flip = True if rotation < 120 else False
         self.health = 100
+        self.damage = 3
+        self.hit = 0
         self.sprite = Animation(self.location, self.rotation,
                                 self.scale, texturespath, 0.1)
         self.sprite.play(loop=False)
@@ -32,7 +34,6 @@ class Ant(Game_Object):
         self.speed = 100
 
     def event_tick(self, delta_time: float, fps: float):
-
         err = 50
         correct = 187
         sp = self.speed / fps
@@ -42,16 +43,23 @@ class Ant(Game_Object):
                 self.location[0] >= self.target_location[0] - err + correct):
             self.location = (
                 self.location[0] + math.cos(self.rotation) * sp, self.location[1])
-
+        else:
+            self.hit = 1
         self.collide_rect = self.sprite.get_rect(self.location, self.rotation)
         frame = self.sprite.get_frame(delta_time)
         self.game_ref.window.blit(frame, self.location)
+        damage(self, fps)
 
     def event_clicked(self, hit_pos: tuple):
         self.game_ref.remove_object_by_id(1, self.object_id)
         self.game_ref.nb_ant -= 1
         return
 
+def damage(ant: Ant, fps: float):
+    if (ant.hit == 1):
+        ant.game_ref.health -= 3 / fps
+    if (ant.game_ref.health < 0):
+        print("lose")
 
 def ant(game: Game, pos: tuple):
     global clock_time, delay, nb_spawn
@@ -71,6 +79,7 @@ def ant(game: Game, pos: tuple):
             angle_player(pos, (random1, 600)), (70, 70), game, pos), 1)
         delay = random.randint(300, 900)
         clock_time = 0
+
 def angle_player(pos, pos2):
     x1, y1 = pos
     x2, y2 = pos2

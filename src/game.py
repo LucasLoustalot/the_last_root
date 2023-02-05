@@ -120,6 +120,7 @@ class Game():
         self.nb = 2.0
         self.window_res = window_res
         self.fps = fps
+        self.health = 100
         self.font = pygame.font.SysFont(pygame.font.get_default_font(), 26)
         self.window = pygame.display.set_mode(
             (self.window_res[0], self.window_res[1]))
