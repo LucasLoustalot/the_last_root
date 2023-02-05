@@ -56,10 +56,10 @@ class Ant(Game_Object):
         return
 
 def damage(ant: Ant, fps: float):
-    if (ant.hit == 1):
+    if (ant.hit == 1 and ant.game_ref.health > 0):
         ant.game_ref.health -= 3 / fps
-    if (ant.game_ref.health < 0):
-        print("lose")
+    if (ant.game_ref.health <= 0):
+        ant.game_ref.clear_objects()
 
 def ant(game: Game, pos: tuple):
     global clock_time, delay, nb_spawn
