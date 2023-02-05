@@ -31,7 +31,6 @@ def main():
     pgm.add_object(Wave_Count((885, 30), 0, (150, 150), pgm), 2)
     while (1):
         ant(pgm, CONST_POS)
-        last = pygame.time.get_ticks()
         pgm.update()
     return (0)
 
