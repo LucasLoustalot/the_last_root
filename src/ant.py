@@ -29,7 +29,7 @@ class Ant(Game_Object):
         self.damage = 3 + random.randint(0,2) + 0.2 * game_ref.wave
         self.hit = 0
         self.is_boss = False
-        self.boss_rd = random.randint(0,25)
+        self.boss_rd = random.randint(0,40)
         if self.boss_rd == 25:
             self.is_boss = True
             self.health *= 2
