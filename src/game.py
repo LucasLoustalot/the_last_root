@@ -8,6 +8,7 @@
 import pygame
 import random
 
+
 class Game_Object(pygame.sprite.Sprite):
     """Master game object, parent of all other object classes.
     - Do not add gameplay specific functions here."""
@@ -131,32 +132,34 @@ class Game():
         self.players = []
         self.clearing = False
 
-        self.mineral = 8
-        self.water = 16
+        self.mineral = 80
+        self.water = 160
         self.m_income = 0.05
         self.w_income = 0.1
         # sprites
-        self.root_pos = [(735, 625), (585, 625), (435, 625),
-                         (285, 625), (-187, 625)]
+        self.root_pos = [(635, 625), (485, 625), (335, 625),
+                         (285, 625), (-187, 625),(-187, 625)]
+        self.gnd_root_pos = [(42, 660), (585, 625), (435, 625),
+                             (285, 625), (-187, 625)]
         self.surface_root_sp = [pygame.image.load(
             "../assets/new_roots/racine_" + str(x + 1) + "_sans_acide.png") for x in range(0, 5)]
         self.gnd_root_sp = [pygame.image.load(
-            "../assets/new_roots/racine_" + str(x + 1) + "_sans_acide.png") for x in range(0, 5)]
+            "../assets/racine_under/racine_ss" + str(x + 1) + ".png") for x in range(0, 6)]
         self.sticky_roots_sp = [pygame.image.load(
-            "../assets/new_roots/acide_racine_" + str(x+1) + ".png") for x in range(0, 5)]
+            "../assets/new_roots/acide_racine_" + str(x + 1) + ".png") for x in range(0, 5)]
 
         # (current/max)
-        self.ground_root_size = (1, 4)
+        self.ground_root_size = (1, 6)
         self.surface_root_size = (1, 5)
         self.sticky_roots = (1, 8)
-        self.solar_power = (1,4)
+        self.solar_power = (1, 4)
         self.pic_upgrade = (1, 3)
         # eau,minéraux
         self.g_root_size_cost = (4, 3)
         self.pic_cost = (8, 3)
         self.sticky_root_cost = (10, 30)
         self.surface_root_cost = (5, 2)
-        self.solar_power_cost = (4,4)
+        self.solar_power_cost = (4, 4)
 
     def add_player(self, player: Game_Object) -> int:
         """Add a player and return a player id"""
@@ -210,8 +213,9 @@ class Game():
         mult = [(1, 1), (2, 1), (2, 2), (3, 4)]
         mt = mult[self.solar_power[0] - 1]
         self.solar_power = (self.solar_power[0] + 1, self.solar_power[1])
-        self.decrase_thune(self.solar_power_cost[0],self.solar_power_cost[1])
-        self.solar_power_cost = (self.solar_power_cost[0] + mt[0], self.solar_power_cost[1] + mt[1])
+        self.decrase_thune(self.solar_power_cost[0], self.solar_power_cost[1])
+        self.solar_power_cost = (
+            self.solar_power_cost[0] + mt[0], self.solar_power_cost[1] + mt[1])
 
     def upgrade_pic(self):
         mult = 2
@@ -235,7 +239,8 @@ class Game():
         obj.layer = layer
         if str(layer) not in self.objects:
             self.objects[str(layer)] = {}
-        obj.object_id = len(self.objects[str(layer)]) + random.randint(0, 999999)
+        obj.object_id = len(
+            self.objects[str(layer)]) + random.randint(0, 999999)
         self.objects[str(layer)][str(obj.object_id)] = obj
         return (obj.object_id)
 
@@ -256,7 +261,7 @@ class Game():
     def clear_objects(self):
         for layer, layer_obj in self.objects.items():
             for key in layer_obj:
-                if layer_obj[key] == None :
+                if layer_obj[key] == None:
                     continue
                 layer_obj[key].event_destroyed()
                 layer_obj[key] = None
@@ -286,9 +291,10 @@ class Game():
         """ self.window.blit(
             self.gnd_root_sp[self.ground_root_size[0]], self.root_pos[self.ground_root_size[0]]) """
         self.window.blit(
-            self.surface_root_sp[self.surface_root_size[0]], self.root_pos[self.surface_root_size[0]])
-        #self.window.blit(self.sticky_roots_sp[self.sticky_roots[0] - 1],self.root_pos[self.sticky_roots[0] - 1])
-        self.window.blit(self.sticky_roots_sp[self.sticky_roots[0] - 1],self.root_pos[self.sticky_roots[0] - 1])
+            self.surface_root_sp[self.surface_root_size[0]], self.root_pos[self.surface_root_size[0] - 1])
+        # self.window.blit(self.sticky_roots_sp[self.sticky_roots[0] - 1],self.root_pos[self.sticky_roots[0] - 1])
+        self.window.blit(
+            self.gnd_root_sp[self.ground_root_size[0]], self.gnd_root_pos[self.ground_root_size[0] - 1])
         return
 
     def update(self):
@@ -302,7 +308,7 @@ class Game():
         # print("Eau : " + str(self.water) + " Minerais : " + str(self.mineral))
         for layer, layer_obj in self.objects.items():
             for key in layer_obj:
-                if layer_obj[key] == None :
+                if layer_obj[key] == None:
                     continue
                 layer_obj[key].event_tick(tick / 1000, fps)
                 if self.clearing == True:
