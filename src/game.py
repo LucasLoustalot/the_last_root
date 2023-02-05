@@ -236,15 +236,6 @@ class Game():
         self.objects[str(layer)][str(Object_id)].event_destroyed()
         self.objects[str(layer)][str(Object_id)] = None
 
-    def clear_objects(self):
-        for layer, layer_obj in self.objects.items():
-            for key in layer_obj:
-                if layer_obj[key] == None :
-                    continue
-                layer_obj[key].event_destroyed()
-                del layer_obj[key]
-        self.objects.clear()
-
     def __garbage_collector(self):
         """Private Method
         - Internal use only"""
@@ -254,6 +245,16 @@ class Game():
                     del layer_obj[key]
                     self.__garbage_collector()
                     return
+
+    def clear_objects(self):
+            for layer, layer_obj in self.objects.items():
+                for key in layer_obj:
+                    if layer_obj[key] == None :
+                        continue
+                    layer_obj[key].event_destroyed()
+                    layer_obj[key] = None
+            self.__garbage_collector()
+            self.objects.clear()
 
     def __update_event(self):
         """Private Method
